@@ -3176,18 +3176,18 @@ eval("__webpack_require__(/*! ../modules/web.timers */ \"./node_modules/core-js/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/style.css */ \"./src/app/styles/style.css\");\n\nalert(\"Hola, funciona\");\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/scripts/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/style.scss */ \"./src/app/styles/style.scss\");\n\nalert(\"Hola, funciona\");\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/scripts/index.js?");
 
 /***/ }),
 
-/***/ "./src/app/styles/style.css":
-/*!**********************************!*\
-  !*** ./src/app/styles/style.css ***!
-  \**********************************/
+/***/ "./src/app/styles/style.scss":
+/*!***********************************!*\
+  !*** ./src/app/styles/style.scss ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/styles/style.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/styles/style.scss?");
 
 /***/ })
 

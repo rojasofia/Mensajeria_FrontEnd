@@ -1,7 +1,11 @@
-$color-titulo: blue;
+$color-titulo: rgb(208, 255, 0);
 
 header {
     h1{
         color: $color-titulo;
     }
+}
+
+body{
+    background-color: aquamarine;
 }
