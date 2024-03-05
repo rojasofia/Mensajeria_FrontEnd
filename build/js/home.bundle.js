@@ -3169,25 +3169,25 @@ eval("__webpack_require__(/*! ../modules/web.timers */ \"./node_modules/core-js/
 
 /***/ }),
 
-/***/ "./src/app/scripts/index.js":
+/***/ "./src/app/scripts/home.js":
+/*!*********************************!*\
+  !*** ./src/app/scripts/home.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_home_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/home.scss */ \"./src/app/styles/home.scss\");\n\nconsole.log('Hola');\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/scripts/home.js?");
+
+/***/ }),
+
+/***/ "./src/app/styles/home.scss":
 /*!**********************************!*\
-  !*** ./src/app/scripts/index.js ***!
+  !*** ./src/app/styles/home.scss ***!
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/style.scss */ \"./src/app/styles/style.scss\");\n\n\n// //Declaración de variables y constantes\n// const register = document.getElementById(\"register\");\n// const home = document.getElementById(\"home\");\n// const login = document.getElementById(\"login\");\n// const pages = [login, register, home];\n\n// const goToRegister = document.getElementById(\"goToRegister\");\n// const goToLogin = document.getElementById(\"goToLogin\");\n\n// //Función para mostrar vista\n// const showPage = (namePage, pages)=>{\n//     localStorage.setItem(\"page\", JSON.stringify(namePage));    \n//     pages.forEach(element=>{\n//         if(element.id ==namePage){\n//             element.style.display = \"block\";\n//         }else{\n//             element.style.display = \"none\";\n//         }\n//     })\n// }\n\n// //Esconder las vistas\n// register.style.display= \"none\";\n// home.style.display = \"none\"\n// document.addEventListener(\"DOMContentLoaded\",()=>{\n//     const currentPage = JSON.parse(localStorage.getItem(\"page\"))||\"login\"\n//     showPage(currentPage, pages);\n// })\n// goToRegister.addEventListener(\"click\",()=>{\n//     showPage(register.id, pages);\n// })\n// goToLogin.addEventListener(\"click\",()=>{\n//     showPage(login.id, pages);\n// })\n\nfunction toggleSignup() {\n  document.getElementById(\"login-toggle\").style.backgroundColor = \"#fff\";\n  document.getElementById(\"login-toggle\").style.color = \"#222\";\n  document.getElementById(\"signup-toggle\").style.backgroundColor = \"#57b846\";\n  document.getElementById(\"signup-toggle\").style.color = \"#fff\";\n  document.getElementById(\"login-form\").style.display = \"none\";\n  document.getElementById(\"signup-form\").style.display = \"block\";\n}\nfunction toggleLogin() {\n  document.getElementById(\"login-toggle\").style.backgroundColor = \"#57B846\";\n  document.getElementById(\"login-toggle\").style.color = \"#fff\";\n  document.getElementById(\"signup-toggle\").style.backgroundColor = \"#fff\";\n  document.getElementById(\"signup-toggle\").style.color = \"#222\";\n  document.getElementById(\"signup-form\").style.display = \"none\";\n  document.getElementById(\"login-form\").style.display = \"block\";\n}\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/scripts/index.js?");
-
-/***/ }),
-
-/***/ "./src/app/styles/style.scss":
-/*!***********************************!*\
-  !*** ./src/app/styles/style.scss ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/styles/style.scss?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/styles/home.scss?");
 
 /***/ })
 
@@ -3235,7 +3235,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	__webpack_require__("./node_modules/@babel/polyfill/lib/index.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/app/scripts/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/app/scripts/home.js");
 /******/ 	
 /******/ })()
 ;

@@ -3235,7 +3235,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	__webpack_require__("./node_modules/@babel/polyfill/lib/index.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/app/scripts/index.js");
+/******/ 	__webpack_require__("./src/app/scripts/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/app/styles/style.scss");
 /******/ 	
 /******/ })()
 ;
