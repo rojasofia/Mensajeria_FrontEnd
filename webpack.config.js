@@ -7,10 +7,11 @@ module.exports = {
     mode: "none",
     entry: {
       app: ["@babel/polyfill", "./src/app/scripts/index.js"],
+      home: ["@babel/polyfill", "./src/app/scripts/home.js"],
     },
     output: {
       path: path.resolve(__dirname, "build"),
-      filename: "js/app.bundle.js",
+      filename: "js/[name].bundle.js",
     },
     devServer: {
       port: 5050,
@@ -46,6 +47,7 @@ module.exports = {
     plugins: [
       new HTMLWebpackPlugin({
         hash: true,
+        filename : "index.html",
         template: "./src/index.html",
         minify: {
           collapseWhitespace: true,
@@ -55,6 +57,21 @@ module.exports = {
           removeStyleLinkTypeAttributes: true,
           useShortDoctype: true,
         },
+        chunks: ["app"],
+      }),
+      new HTMLWebpackPlugin({
+        hash: true,
+        filename : "home.html",
+        template: "./src/home.html",
+        minify: {
+          collapseWhitespace: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          useShortDoctype: true,
+        },
+        chunks: ["home"],
       }),
       new MiniCssExtractPlugin({
         filename: "css/app.bundle.css",

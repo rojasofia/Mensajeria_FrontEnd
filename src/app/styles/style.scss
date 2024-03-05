@@ -1,11 +1,3 @@
-$color-titulo: rgb(208, 255, 0);
+@import './modules/variables.scss';
+@import './modules/universal.scss';
 
-header {
-    h1{
-        color: $color-titulo;
-    }
-}
-
-body{
-    background-color: aquamarine;
-}

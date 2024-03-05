@@ -3169,25 +3169,25 @@ eval("__webpack_require__(/*! ../modules/web.timers */ \"./node_modules/core-js/
 
 /***/ }),
 
-/***/ "./src/app/scripts/index.js":
-/*!**********************************!*\
-  !*** ./src/app/scripts/index.js ***!
-  \**********************************/
+/***/ "./src/app/scripts/loginRegister.js":
+/*!******************************************!*\
+  !*** ./src/app/scripts/loginRegister.js ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/style.scss */ \"./src/app/styles/style.scss\");\n\n\n//Declaración de variables y constantes\nvar register = document.getElementById(\"register\");\nvar home = document.getElementById(\"home\");\nvar login = document.getElementById(\"login\");\nvar pages = [login, register, home];\nvar goToRegister = document.getElementById(\"goToRegister\");\nvar goToLogin = document.getElementById(\"goToLogin\");\n\n//Función para mostrar vista\nvar showPage = function showPage(namePage, pages) {\n  localStorage.setItem(\"page\", JSON.stringify(namePage));\n  pages.forEach(function (element) {\n    if (element.id == namePage) {\n      element.style.display = \"block\";\n    } else {\n      element.style.display = \"none\";\n    }\n  });\n};\n\n//Esconder las vistas\nregister.style.display = \"none\";\nhome.style.display = \"none\";\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  var currentPage = JSON.parse(localStorage.getItem(\"page\")) || \"login\";\n  showPage(currentPage, pages);\n});\ngoToRegister.addEventListener(\"click\", function () {\n  showPage(register.id, pages);\n});\ngoToLogin.addEventListener(\"click\", function () {\n  showPage(login.id, pages);\n});\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/scripts/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_loginRegister_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/loginRegister.scss */ \"./src/app/styles/loginRegister.scss\");\n\n// function toggleSignup(){\n//     document.getElementById(\"login-toggle\").style.backgroundColor=\"#fff\";\n//      document.getElementById(\"login-toggle\").style.color=\"#222\";\n//      document.getElementById(\"signup-toggle\").style.backgroundColor=\"#57b846\";\n//      document.getElementById(\"signup-toggle\").style.color=\"#fff\";\n//      document.getElementById(\"login-form\").style.display=\"none\";\n//      document.getElementById(\"signup-form\").style.display=\"block\";\n//  }\n\n//  function toggleLogin(){\n//      document.getElementById(\"login-toggle\").style.backgroundColor=\"#57B846\";\n//      document.getElementById(\"login-toggle\").style.color=\"#fff\";\n//      document.getElementById(\"signup-toggle\").style.backgroundColor=\"#fff\";\n//      document.getElementById(\"signup-toggle\").style.color=\"#222\";\n//      document.getElementById(\"signup-form\").style.display=\"none\";\n//      document.getElementById(\"login-form\").style.display=\"block\";\n//  }\n\n//  export default index;\n\nconsole.log('Hola');\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/scripts/loginRegister.js?");
 
 /***/ }),
 
-/***/ "./src/app/styles/style.scss":
-/*!***********************************!*\
-  !*** ./src/app/styles/style.scss ***!
-  \***********************************/
+/***/ "./src/app/styles/loginRegister.scss":
+/*!*******************************************!*\
+  !*** ./src/app/styles/loginRegister.scss ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/styles/style.scss?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://mensajeria_frontend/./src/app/styles/loginRegister.scss?");
 
 /***/ })
 
@@ -3235,7 +3235,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	__webpack_require__("./node_modules/@babel/polyfill/lib/index.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/app/scripts/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/app/scripts/loginRegister.js");
 /******/ 	
 /******/ })()
 ;
