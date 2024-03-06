@@ -1,10 +1,14 @@
-@import './modules/variables.scss';
-@import './modules/universal.scss';
-@import './modules/mixin.scss';
+@import "./modules/variables.scss";
+@import "./modules/universal.scss";
+@import "./modules/mixin.scss";
 
 img {
-    width: 10rem;
-    height: 10rem;
+    width: 6rem;
+    height: 6rem;
+}
+
+.home__modal {
+    background-color: whitesmoke;
 }
 
 .home__modal-header {
@@ -12,34 +16,61 @@ img {
         padding: $padding-header-home;
         @include center($justify-content: space-between);
         background-color: gray;
-        color: white;
-        font-size: 1.2rem;
-        font-weight: 600;
-
+        span {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
         img {
             @include widthImage;
         }
     }
     &-search {
-        background-color: aliceblue;
+        background-color: gainsboro;
         padding: $padding-header-home;
         @include center;
-        
         i {
-            position: fixed;
-            left: 2.5%;
+            position: absolute;
+            left: 2%;
             color: $color-acento;
         }
         input {
-            width: 96%;
-            padding: .5rem;
+            width: 98%;
+            padding: 0.5rem;
             outline: none;
             border: none;
             border-radius: 2rem;
-            font-size: .98rem;
+            font-size: 0.98rem;
         }
     }
-    &-input::placeholder{
+    &-input::placeholder {
         padding-left: 2.8rem;
     }
 }
+
+.home__modal-chat {
+    padding: $padding-header-home;
+    @include center($justify-content: space-around);
+
+    &--active {
+        background-color: gainsboro;
+    }
+
+    &-img {
+        @include widthImage;
+    }
+    &-preview {
+        height: 100%;
+        width: 78%;
+        .home__modal-chat-contact {
+            @include center($justify-content: space-between);
+            padding-bottom: .2rem;
+        }
+        .home__modal-chat-text {
+            @include center($justify-content: flex-estart);
+            gap: .5rem;
+        }
+    }
+
+}
+
