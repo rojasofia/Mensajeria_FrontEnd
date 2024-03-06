@@ -1,0 +1,12 @@
+@mixin widthImage($width: 3rem, $height: 3rem) {
+    width: $width;
+    height: $height;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@mixin center ($justify-content: center) {
+    display: flex;
+    align-items: center;
+    justify-content: $justify-content;
+}
