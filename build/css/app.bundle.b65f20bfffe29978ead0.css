@@ -1,0 +1,215 @@
+/*!********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/app/styles/style.scss ***!
+  \********************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Quicksand);
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/app/styles/style.scss (1) ***!
+  \************************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Quicksand);
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/app/styles/style.scss (2) ***!
+  \************************************************************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat,Quicksand";
+}
+
+.home {
+  background-color: paleturquoise;
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+}
+.home__modal {
+  background-color: plum;
+  width: 30%;
+}
+.home__chat {
+  background-color: purple;
+  width: 70%;
+}
+
+body {
+  background-color: rgb(231, 231, 231);
+  background-image: url(../8d618b4ce5a7f78730bd.png);
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 500px;
+  margin-top: 50px;
+}
+
+.form-modal {
+  position: relative;
+  width: 450px;
+  height: auto;
+  margin-top: 4em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 6px 30px 2px #2DBEB1;
+}
+
+.form-modal button {
+  cursor: pointer;
+  position: relative;
+  text-transform: capitalize;
+  font-size: 1em;
+  z-index: 2;
+  outline: none;
+  background: #fff;
+  transition: 0.2s;
+}
+.form-modal button.btn {
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0.8em 1em 0.8em 1em !important;
+  transition: 0.5s;
+  border: 1px solid #ebebeb;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+.form-modal button.btn.login, .form-modal button.btn.signup {
+  background: #2DBEB1;
+  color: #fff;
+}
+.form-modal button.btn.login:hover, .form-modal button.btn.signup:hover {
+  background: #F84914;
+}
+
+.form-toggle {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.form-toggle button {
+  width: 50%;
+  float: left;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  border: none;
+  transition: 0.2s;
+  font-size: 1.1em;
+  font-weight: bold;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.form-toggle button:nth-child(1) {
+  border-bottom-right-radius: 20px;
+}
+.form-toggle button:nth-child(2) {
+  border-bottom-left-radius: 20px;
+}
+.form-toggle #login-toggle {
+  background: #F84914;
+  color: #fff;
+}
+
+.form-modal form {
+  position: relative;
+  width: 90%;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#login-form,
+#signup-form {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding-bottom: 1em;
+}
+#login-form #signup-form,
+#signup-form #signup-form {
+  display: none;
+}
+#login-form button,
+#signup-form button {
+  width: 100%;
+  margin-top: 0.5em;
+  padding: 0.6em;
+}
+
+.form-modal input {
+  position: relative;
+  width: 100%;
+  font-size: 1em;
+  padding: 1.2em 1.7em 1.2em 1.7em;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+  border-radius: 20px;
+  border: none;
+  background: #ebebeb;
+  outline: none;
+  font-weight: bold;
+  transition: 0.4s;
+}
+.form-modal input:focus, .form-modal input:active {
+  transform: scaleX(1.02);
+}
+.form-modal input::-webkit-input-placeholder {
+  color: #222;
+}
+
+.form-modal p {
+  font-size: 16px;
+  font-weight: bold;
+}
+.form-modal p a {
+  color: #F84914;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.form-modal p a:hover {
+  color: #222;
+}
+
+.form-modal i {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  transform: translateX(-10%) translateY(-50%);
+}
+
+.fa-google {
+  color: #dd4b39;
+}
+
+.fa-linkedin {
+  color: #3b5998;
+}
+
+.fa-windows {
+  color: #0072c6;
+}
+
+.-box-sd-effect:hover {
+  box-shadow: 0 4px 8px hsla(210, 2%, 84%, 0.2);
+}
+
+@media only screen and (max-width: 500px) {
+  .form-modal {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  i {
+    display: none !important;
+  }
+}

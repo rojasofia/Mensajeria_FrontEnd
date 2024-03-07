@@ -1,8 +1,14 @@
 import "../styles/style.scss";
-import image from "../assets/images/LOGO.png";
+import image from "../assets/images/logo-bordeado.png";
+import fondoImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
 
 const logoImage = document.getElementById("logo");
 logoImage.setAttribute("src", image);
+
+document.body.style.background= `linear-gradient(0deg, rgba(0, 0, 0, 0.400), rgba(0, 0, 0, 0.300)),
+url(${fondoImage})`
+//document.body.style.backgroundImage = `url(${fondoImage})`
+//document.body.style.filter = 'brightness(0.5)'; se aplica filtro a todo
 
 // //Declaración de variables y constantes
 

@@ -3,7 +3,6 @@
 
 body {
   background-color: rgb(231, 231, 231);
-  background-image: url('../assets/images/1Login-Register/Textura-forms-fondo.png'); //no funciona
   background-repeat: repeat-x;
   background-size: cover;
 }
@@ -23,7 +22,7 @@ header {
   position: relative;
   width: 450px;
   height: auto;
-  margin-top: 4em;
+  margin-top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
