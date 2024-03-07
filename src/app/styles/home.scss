@@ -8,52 +8,55 @@ img {
 }
 
 .home__modal {
-    background-color: whitesmoke;
+    background-color: #FCFCFC;
+
+    &-header {
+        &-img {
+            padding: $padding-header-home;
+            @include center($justify-content: space-between);
+            background-color: $primary-color;
+            
+            span {
+                color: white;
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            img {
+                @include widthImage;
+            }
+        }
+        &-search {
+            background-color: #EDEDED;
+            padding: $padding-header-home;
+            @include center;
+            i {
+                position: absolute;
+                left: 2%;
+                color: $color-acento;
+            }
+            input {
+                width: 98%;
+                padding: 0.5rem;
+                outline: none;
+                border: none;
+                border-radius: 2rem;
+                font-size: 0.98rem;
+            }
+        }
+        &-input::placeholder {
+            padding-left: 2.8rem;
+        }
+    }
 }
 
-.home__modal-header {
-    &-img {
-        padding: $padding-header-home;
-        @include center($justify-content: space-between);
-        background-color: gray;
-        span {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        img {
-            @include widthImage;
-        }
-    }
-    &-search {
-        background-color: gainsboro;
-        padding: $padding-header-home;
-        @include center;
-        i {
-            position: absolute;
-            left: 2%;
-            color: $color-acento;
-        }
-        input {
-            width: 98%;
-            padding: 0.5rem;
-            outline: none;
-            border: none;
-            border-radius: 2rem;
-            font-size: 0.98rem;
-        }
-    }
-    &-input::placeholder {
-        padding-left: 2.8rem;
-    }
-}
+
 
 .home__modal-chat {
     padding: $padding-header-home;
     @include center($justify-content: space-around);
 
     &--active {
-        background-color: gainsboro;
+        background-color: #EDEDED;
     }
 
     &-img {
@@ -67,10 +70,66 @@ img {
             padding-bottom: .2rem;
         }
         .home__modal-chat-text {
-            @include center($justify-content: flex-estart);
+            @include center($justify-content: flex-start);
             gap: .5rem;
+
+            i{
+                color: $color-acento;
+            }
         }
     }
 
+}
+.home__modal-chat-contact{
+    h4{
+        color: $secundary-color;
+    }
+    p{
+        color: #9D9D9D;
+    }
+    
+}
+.home__modal-description{
+    color: #9D9D9D;
+}
+
+
+//Estilos de la conversación abierta
+.home__chat {
+
+    height: 100%;
+    
+    &-header {
+        background-color: $secundary-color;
+        display: flex;
+        flex-direction: row;
+        height: 5rem;
+    
+        img {
+            border-radius: 50%; 
+            width: 50px; 
+            height: 50px; 
+            margin: 1rem;
+        }
+        
+        &-userFriend{
+            display: flex;
+            flex-direction: column;
+            margin: 1rem;
+            color: #FCFCFC;
+        }
+    }
+    
+        
+    &-footer{
+    
+        height: 6rem;
+        width: 100%;
+        background-color: #EDEDED;
+
+        i{
+            color: $color-acento;
+        }
+    }
 }
 
