@@ -2,14 +2,27 @@
 @import './modules/universal.scss';
 
 body {
-  background: rgb(34, 34, 34);
+  background-color: rgb(231, 231, 231);
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 500px;
+  margin-top: 50px;
 }
 
 .form-modal {
   position: relative;
   width: 450px;
   height: auto;
-  margin-top: 4em;
+  margin-top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
@@ -42,11 +55,11 @@ body {
 
     &.login,
     &.signup {
-      background: #57b846;
+      background:$primary-color;
       color: #fff;
 
       &:hover {
-        background: #222;
+        background: $color-acento;
       }
     }
   }
@@ -79,7 +92,7 @@ body {
   }
 
   #login-toggle {
-    background: #57b846;
+    background: $color-acento;
     color: #fff;
   }
 }
@@ -139,7 +152,7 @@ body {
   font-weight: bold;
 
   a {
-    color: #57b846;
+    color: $color-acento;
     text-decoration: none;
     transition: 0.2s;
 

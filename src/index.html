@@ -1,50 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mensajeria</title>
-</head>
-<body>
+  </head>
+
+  <body>
 
 
     <!-- página de inicio de sesión-->
-    <!-- los estilos del h1,  son temporal tranqui-->
-<h1 class="text" style="text-align:center; color:#F84914; margin-top: 2rem;" >Talk2me</h1>  
+    <header>
+        <img class="logo" id="logo" alt="logo Talk2me">
+    </header>
 
-  <div class="form-modal">
-        <div class="form-toggle">
-            <button id="login-toggle">log in</button>
-            <button id="signup-toggle">sign up</button>
-        </div>
-        
-        <div id="login-form">
-            <form>
-                <input type="text" placeholder="Ingrese su correo"/>
-                <input type="password" placeholder="Ingrese su contraseña"/>
-                <button type="button" class="btn login">login</button>
-            </form>
-        </div>
-    
-        <div id="signup-form" style="display: none;">
-            <form>
-                <input type="email" placeholder="Ingresa tu correo"/>
-                <input type="text" placeholder="Ingresa tu nombre"/>
-                <input type="password" placeholder="Crea una contraseña"/>
-                <input type="password2" placeholder="Repite la contraseña"/>
-                <button type="button" class="btn signup">create account</button>
-                
-               
-            </form>
-        </div>
-    
+    <div class="form-modal">
+      <div class="form-toggle">
+        <button id="login-toggle">log in</button>
+        <button id="signup-toggle">sign up</button>
+      </div>
+
+      <div id="login-form">
+        <form>
+          <input type="text" placeholder="Ingrese su correo" />
+          <input type="password" placeholder="Ingrese su contraseña" />
+          <button type="button" class="btn login">login</button>
+        </form>
+      </div>
+
+      <div id="signup-form" style="display: none">
+        <form>
+          <input type="email" placeholder="Ingresa tu correo" />
+          <input type="text" placeholder="Ingresa tu nombre" />
+          <input type="password" placeholder="Crea una contraseña" />
+          <input type="password2" placeholder="Repite la contraseña" />
+          <button type="button" class="btn signup">create account</button>
+        </form>
+      </div>
     </div>
 
+    <a href="./home.html">Ir a home</a>
 
-
-     <a href="./home.html">Ir a home</a>
-
-   <!-- <div id="login">
+    <!-- <div id="login">
         <header>
             <h1>Login</h1>
             <img src="https://img.freepik.com/fotos-premium/imagen-fondo_910766-187.jpg" alt="">
@@ -69,7 +66,6 @@
         </main>
         <footer></footer>
     </div> -->
-    <script src="./app/scripts/index.js"></script>
+  </body>
+</html>
 
-</body>
-</html> 
