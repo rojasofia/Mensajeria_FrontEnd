@@ -7,17 +7,14 @@
 }
 
 .home {
-    background-color: paleturquoise;
     display: flex;
     justify-content: space-between;
     height: 100vh;
 
     &__modal {
-        background-color: plum;
         width: 30%;
     }
     &__chat {
-        background-color: purple;
-        width: 70%;
+        width: 70%; 
     }
 }

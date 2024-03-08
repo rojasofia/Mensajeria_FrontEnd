@@ -8,43 +8,48 @@ img {
 }
 
 .home__modal {
-    background-color: whitesmoke;
-}
+    background-color: #fcfcfc;
 
-.home__modal-header {
-    &-img {
-        padding: $padding-header-home;
-        @include center($justify-content: space-between);
-        background-color: gray;
-        span {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
+    &-header {
+        &-img {
+            padding: $padding-header-home;
+            @include center($justify-content: space-between);
+            background-color: $primary-color;
+
+            span {
+                color: white;
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            img {
+                @include widthImage;
+            }
         }
-        img {
-            @include widthImage;
+        &-search {
+            background-color: #ededed;
+            padding: $padding-header-home;
+            @include center;
+            i {
+                position: absolute;
+                left: 2%;
+                color: $color-acento;
+            }
+            input {
+                width: 98%;
+                padding: 0.5rem;
+                outline: none;
+                border: none;
+                border-radius: 2rem;
+                font-size: 0.98rem;
+            }
+        }
+        &-input::placeholder {
+            padding-left: 2.8rem;
         }
     }
-    &-search {
-        background-color: gainsboro;
-        padding: $padding-header-home;
-        @include center;
-        i {
-            position: absolute;
-            left: 2%;
-            color: $color-acento;
-        }
-        input {
-            width: 98%;
-            padding: 0.5rem;
-            outline: none;
-            border: none;
-            border-radius: 2rem;
-            font-size: 0.98rem;
-        }
-    }
-    &-input::placeholder {
-        padding-left: 2.8rem;
+
+    &-description {
+        color: #9d9d9d;
     }
 }
 
@@ -53,24 +58,149 @@ img {
     @include center($justify-content: space-around);
 
     &--active {
-        background-color: gainsboro;
+        background-color: #ededed;
     }
 
     &-img {
         @include widthImage;
     }
+
     &-preview {
         height: 100%;
         width: 78%;
-        .home__modal-chat-contact {
-            @include center($justify-content: space-between);
-            padding-bottom: .2rem;
+    }
+
+    &-contact {
+        @include center($justify-content: space-between);
+        padding-bottom: 0.2rem;
+
+        h4 {
+            color: $secundary-color;
         }
-        .home__modal-chat-text {
-            @include center($justify-content: flex-estart);
-            gap: .5rem;
+        p {
+            color: #9d9d9d;
+        }
+    }
+    &-text {
+        @include center($justify-content: flex-start);
+        gap: 0.5rem;
+
+        i {
+            color: $color-acento;
+        }
+    }
+}
+
+//Estilos de la conversación abierta
+.home__chat {
+    position: relative;
+    overflow: hidden;
+
+    i {
+        color: $color-acento;
+    }
+
+    &-header {
+        background-color: $secundary-color;
+        display: flex;
+        flex-direction: row;
+        height: 5rem;
+        align-items: center;
+        padding: 1.5rem;
+
+        img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        &-userFriend {
+            display: flex;
+            flex-direction: column;
+            color: #fcfcfc;
+            margin: 1rem;
+
+            h4 {
+                margin-bottom: .3rem;
+            }
+        }
+
+        i {
+            margin-left: auto; // Coloca el ícono a la derecha
+        }
+
+    }
+
+    &-conversation{
+        height: 100%;
+        background-size: cover; 
+        background-position: center; 
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    &-message-user{
+        display: flex;
+        flex-direction: column;
+        background-color: #FCFCFC ;
+        color: #0C0C0C;
+        padding: 1rem;
+        @include rounded-message-borders-user(10px);
+        align-self: flex-end;
+
+        .hour{
+            margin-top: 0.3rem;
+            margin-bottom: 0;
+            color: #9D9D9D;
+            align-self: flex-end;
+        }
+
+        &Friend{
+            display: flex;
+            flex-direction: column;
+            background-color: $primary-color;
+            color: #161515;
+            padding: 1rem;
+            @include rounded-message-borders-friend(10px);
+            align-self: flex-start;
+            
+            .hour{
+                margin-top: 0.3rem;
+                margin-bottom: 0;
+                color: #9D9D9D;
+                align-self: flex-end;
+            }
+            
         }
     }
 
+
+    &-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 4rem;
+        background-color: #ededed;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1rem;
+
+        i {
+            color: $color-acento;
+            margin: 0.5rem;
+        }
+
+        input {
+            width: 80%;
+            height: 2.5rem;
+            border-radius: 1rem;
+            padding: 1rem;
+            border: none;
+            outline: none;
+        }
+    }
 }
 
