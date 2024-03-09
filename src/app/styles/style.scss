@@ -207,7 +207,6 @@ p {
   transform: translateX(-10%) translateY(-50%);
 }
 
-
 .form-input {
   width: 100%;
   border: 3px solid transparent;
@@ -225,48 +224,11 @@ p {
 }
 
 .form__input-error {
-  font-size: 12px;
-  margin-bottom: 1rem;
+  font-size: 13px;
+  margin: 0 0 0 1rem;
   display: none;
   color:$color-acento;
-  background-color:red;
-}
-.form-Message {
-  font-size: 12px;
-  margin-bottom: 1rem;
-  display: none;
-  color:$color-acento;
-  background-color:red;
-}
-.form__input-error-activ {
-  display: block;
-}
-
-.form__Mesaage-activ {
-  display: block;
-  background-color:red;
-}
-
-.form-Mesaage {
-  display: none;
-  line-height: 45px;
-  color: $color-acento;
-}
-
-
-.form__group-correct {
-    color: #d11e8c;
-    opacity: 1;
   
-}
-
-.form__group-incorrect {
-  color: $color-acento;
-
-  
-  .form-input {
-    border: 3px solid $color-acento;
-  }
 }
 
 @media only screen and (max-width: 500px) {

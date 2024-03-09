@@ -1,6 +1,7 @@
 import "../styles/style.scss";
 import image from "../assets/images/logo-bordeado.png";
 import fondoImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
+import Swal from 'sweetalert2';
 
 const logoImage = document.getElementById("logo");
 logoImage.setAttribute("src", image);
@@ -11,188 +12,123 @@ url(${fondoImage})`;
 //document.body.style.filter = 'brightness(0.5)'; se aplica filtro a todo
 
 
-//funcion para activar y desactivar el login/sing Up
-function toggleLogin() {
+document.addEventListener("DOMContentLoaded", function () {
+  // Funciones para activar y desactivar el login/sing Up
+  function toggleLogin() {
     document.getElementById("login-toggle").classList.add("active");
     document.getElementById("signup-toggle").classList.remove("active");
     document.getElementById("signup-form").style.display = "none";
     document.getElementById("login-form").style.display = "block";
   }
-  
+
   function toggleSignup() {
     document.getElementById("login-toggle").classList.remove("active");
     document.getElementById("signup-toggle").classList.add("active");
     document.getElementById("login-form").style.display = "none";
     document.getElementById("signup-form").style.display = "block";
   }
-  
-  // Agregar un evento de clic para cambiar el color al hacer clic en "Sign Up"
+
+  // Agregar eventos de clic para cambiar el color al hacer clic en "Sign Up" o "Login"
   document.getElementById("signup-toggle").addEventListener("click", function () {
     this.classList.add("active");
     document.getElementById("login-toggle").classList.remove("active");
     toggleSignup();
     document.getElementById("login-toggle").classList.add("signup-mode");
   });
-  
-  // Agregar un evento de clic para cambiar el color al hacer clic en "Login"
+
   document.getElementById("login-toggle").addEventListener("click", function () {
     this.classList.add("active");
     document.getElementById("signup-toggle").classList.remove("active");
     toggleLogin();
     document.getElementById("login-toggle").classList.remove("signup-mode");
   });
-// //Declaración de variables y constantes
-const expressions = {
-  name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-  phone: /^\d{10}$/,
-  password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
-  url: /\.(jpg|jpeg|png|gif)$/i,
-};
 
-const fields = {
-    name: false,
-    phone: false,
-    password: false,
-    url: false,
- 
-};
-
-//agregar sweetalert
-const showErrorMessage = () => {
-    document
-      .getElementById("form-Mesaage")
-      .classList.add("form__Mesaage-activ");
-  };
-
-  const hideMessageError = () => {
-    document
-      .getElementById("form-Mesaage")
-      .classList.remove("form__Mesaage-activ");
-  };
-
-const validateForm = (e) => {
-  switch (e.target.name) {
-    case "name":
-        validateField(expressions.name, e.target, "name");
-      break;
-    case "phone":
-        validateField(expressions.phone, e.target, "phone");
-      break;
-    case "password":
-        validateField(expressions.password, e.target, "password");
-      break;
-    case "url":
-        validateField(expressions.url, e.target, "url");
-      break;
+  // Agregar un evento de clic al botón de registro
+  document.querySelector(".btn.signup").addEventListener("click", function () {
+    // Reiniciar los estilos y mensajes de error
+    resetFormStyles();
     
-  }
-};
-
-const validateField = (expresion, input, field) => {
-    const grupField = document.getElementById(`group_${field}`);
-    const iconStateField = grupField.querySelector("i");
-    const mensageError = grupField.querySelector(".form__input-error");
-
-    if (expresion.test(input.value)) {
-      grupField.classList.remove("form__group-incorrect");
-      grupField.classList.add("form__group-correct");
-      iconStateField.classList.add("fa-check-circle");
-      iconStateField.classList.remove("fa-solid fa-check");
-      mensageError.classList.remove("form__input-error-activ");
-      fields[field] = true;
-    } else {
-      grupField.classList.add("form__group-incorrect");
-      grupField.classList.remove("form__group-correct");
-      iconStateField.classList.add("fa-times-circle");
-      iconStateField.classList.remove("fa-solid fa-check");
-      mensageError.classList.add("form__input-error-activ");
-      fields[field] = false;
-
-      showErrorMessage();
-    }
-// Validar longitud específica para algunos campos
-if (
-    field === "phone" &&
-    (input.value.length <= 14)
-  ) {
-    grupField.classList.add("form__group-incorrect");
-    grupField.classList.remove("form__group-correct");
-    iconStateField.classList.add("fa-times-circle");
-    iconStateField.classList.remove("fa-solid fa-check");
-    mensageError.classList.add("form__input-error-activ");
-    fields[field] = false;
-
-    showErrorMessage();
-  } else if (
-    field === "phone" &&
-    input.value.length >= 14
-  ) {
-    // Se añade esta condición para corregir la validación de longitud para el campo "telefono"
-    grupField.classList.add("form__group-incorrect");
-    grupField.classList.remove("form__group-correct");
-    iconStateField.classList.add("fa-times-circle");
-    iconStateField.classList.remove("fa-solid fa-check");
-    mensageError.classList.add("form__input-error-activ");
-    fields[field] = true;
-  }
-
-  if (
-    field === "password" 
-  ) {
-    grupField.classList.add("form__group-incorrect");
-    grupField.classList.remove("form__group-correct");
-    iconStateField.classList.add("fa-times-circle");
-    iconStateField.classList.remove("fa-solid fa-check");
-    iconStateField.style.color = "red";
-    mensageError.classList.add("form__input-error-activ");
-    fields[field] = false;
-
-    showErrorMessage();
-  } else if (
-    field === "password"
-  ) {
-    // Se añade esta condición para corregir la validación de longitud para el campo "password"
-    grupField.classList.add("form__group-incorrect");
-    grupField.classList.remove("form__group-correct");
-    iconStateField.classList.add("fa-times-circle");
-    iconStateField.classList.remove("fa-solid fa-check");
-    mensageError.classList.add("form__input-error-activ");
-    fields[field] = true;
-    showErrorMessage()
-  }
-
- // Ocultar mensaje de error si todos los campos son correctos
- if (
-    field.name &&
-    field.phone &&
-    field.password &&
-    field.url 
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const password = document.getElementById("password").value;
+        const url = document.getElementById("url").value;
     
-  ) {
-    hideMessageError();
-  }
-};
-
-
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  hideMessageError();
-
-  // Obtener los valores de los campos del formulario
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const password = document.getElementById("password").value;
-  const url = document.getElementById("url").value;
-}),
-
-
-
-
-// Agrega los manejadores de eventos después de cargar el DOM
-document.getElementById("login-toggle").addEventListener("click", toggleLogin);
-document
-  .getElementById("signup-toggle")
-  .addEventListener("click", toggleSignup);
+        if (!name.match(/^[a-zA-ZÀ-ÿ\s]{1,40}$/)) {
+          showErrorMessage("error_name", "El nombre debe contener maximo 30 letras");
+        }
+    
+        if (!phone.match(/^\d{10}$/)) {
+          showErrorMessage("error_phone", "El telefono debe contener hasta 14 números");
+        }
+    
+        if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/)) {
+          showErrorMessage("error_password", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial");
+        }
+    
+        if (!isValidImageURL(url)) {
+          showErrorMessage("error_url", "La imagen debe ser formato .jpg, .jpeg, .png o .gif");
+        }
+    
+        // Verificar si todos los campos son válidos
+        if (isValidName(name) && isValidPhone(phone) && isValidPassword(password) && isValidImageURL(url)) {
+          // Si todos los campos son válidos, mostrar el SweetAlert
+          showSuccessAlert();
+        }
+      });
+    
+      function isValidName(name) {
+        return name.match(/^[a-zA-ZÀ-ÿ\s]{1,40}$/);
+      }
+    
+      function isValidPhone(phone) {
+        return phone.match(/^\d{10}$/);
+      }
+    
+      function isValidPassword(password) {
+        return password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/);
+      }
+    
+      function isValidImageURL(input) {
+        try {
+          new URL(input);
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+    
+      function showSuccessAlert() {
+        Swal.fire({
+          title: "Se ha registrado correctamente.",
+          width: 600,
+          padding: "3em",
+          color: "#716add",
+          
+        });
+      }
+    
+      function resetFormStyles() {
+        const errorElements = document.querySelectorAll(".form__input-error");
+        errorElements.forEach((element) => {
+          element.style.display = "none";
+        });
+      }
+    
+      function showErrorMessage(errorId, errorMessage) {
+        const errorElement = document.getElementById(errorId);
+        errorElement.style.display = "block";
+    
+        if (window.getComputedStyle(errorElement).display === 'block') {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: errorMessage,
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        }
+      }
+    });
+    
 
 // codigo de la profe
 
