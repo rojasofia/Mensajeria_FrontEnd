@@ -1,3 +1,4 @@
+
 import "../styles/style.scss";
 import image from "../assets/images/logo-bordeado.png";
 import fondoImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
@@ -53,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value;
         const url = document.getElementById("url").value;
     
-        if (!name.match(/^[a-zA-ZÀ-ÿ\s]{1,40}$/)) {
-          showErrorMessage("error_name", "El nombre debe contener maximo 30 letras");
+        if (!name.match(/^[a-zA-ZÀ-ÿ\s]{1,30}$/)) {
+          showErrorMessage("error_name", "El nombre debe contener maximo 30 letras y no puede contener caracteres.");
         }
     
         if (!phone.match(/^\d{10}$/)) {
