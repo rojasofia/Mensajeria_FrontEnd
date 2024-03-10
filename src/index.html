@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/d8d37f6198.js" crossorigin="anonymous"></script>
     <title>Mensajeria</title>
   </head>
 
@@ -11,61 +12,48 @@
 
     <!-- página de inicio de sesión-->
     <header>
-        <img class="logo" id="logo" alt="logo Talk2me">
-    </header>
-
-    <div class="form-modal">
+      <img class="logo" id="logo" alt="logo Talk2me">
+  </header>
+  
+  <div class="form-modal">
       <div class="form-toggle">
-        <button id="login-toggle">log in</button>
-        <button id="signup-toggle">sign up</button>
+          <button id="login-toggle">log in</button>
+          <button id="signup-toggle">sign up</button>
       </div>
-
+  
       <div id="login-form">
-        <form>
-          <input type="text" placeholder="Ingrese su correo" />
-          <input type="password" placeholder="Ingrese su contraseña" />
-          <button type="button" class="btn login">login</button>
-        </form>
+          <form>
+              <input type="text" placeholder="Ingrese tú número de celular" />
+              <input type="password" placeholder="Ingrese su contraseña" />
+              <button type="button" class="btn login">login</button>
+          </form>
       </div>
-
+  
       <div id="signup-form" style="display: none">
-        <form>
-          <input type="email" placeholder="Ingresa tu correo" />
-          <input type="text" placeholder="Ingresa tu nombre" />
-          <input type="password" placeholder="Crea una contraseña" />
-          <input type="password2" placeholder="Repite la contraseña" />
-          <button type="button" class="btn signup">create account</button>
-        </form>
+          <form>
+              <input class="form-input" id="name" name="name" type="text" placeholder="Ingresa tu nombre" required />
+              <p class="form__input-error" id="error_name"></p>
+  
+              <input class="form-input" id="phone" name="phone" type="number" placeholder="Ingresa tu número de celular" required />
+              <p class="form__input-error" id="error_phone"></p>
+  
+              <input class="form-input" id="password" name="password" type="password" placeholder="Crea una contraseña" required />
+              <p class="form__input-error" id="error_password"></p>
+  
+              <input class="form-input" id="url" name="url" type="text" placeholder="Ingresa tu imagen de perfil" required />
+            <p class="form__input-error" id="error_url"></p>
+
+              <button type="button" class="btn signup">create account</button>
+          </form>
       </div>
-    </div>
+  </div>
+    
 
     <a href="./home.html">Ir a home</a>
 
-    <!-- <div id="login">
-        <header>
-            <h1>Login</h1>
-            <img src="https://img.freepik.com/fotos-premium/imagen-fondo_910766-187.jpg" alt="">
-        </header>
-        <main>
-            <p>Si no tienes una cuenta puedes crearla <button id="goToRegister">aquí!</button></p>
-        </main>
-        <footer></footer>
-    </div> 
-    
-    página de registro 
+   
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    
-     <div id="register">
-        <header>
-            <h1>Register</h1>
-            
-        </header>
-        <main>
-            <p>Si  ya tienes una cuenta pueder iniciar sesión  <button id="goToLogin">aquí!</button></p>
-        </main>
-        <footer></footer>
-    </div> -->
   </body>
 </html>
 
