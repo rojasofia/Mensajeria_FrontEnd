@@ -7,3 +7,5 @@ const endpoints = {
 };
 
 export default endpoints;
+
+export const users = [];

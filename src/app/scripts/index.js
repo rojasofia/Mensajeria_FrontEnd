@@ -1,6 +1,7 @@
 import { getDataForm } from '../modules/getDataForm.js';
-import endpoints from '../services/data.js';
+import endpoints, { users } from '../services/data.js';
 import { getUser } from '../services/userServices.js';
+import { createUser } from '../services/registerUsers.js';
 import "../styles/style.scss";
 import image from "../assets/images/logo-bordeado.png";
 import fondoImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
@@ -38,6 +39,29 @@ formLogin.addEventListener("submit", async (event) => {
   const userData = getDataForm(formLogin);
   login(userData);
 });
+
+/////FUNCIONES REGISTER SIGN UP
+
+const formRegister = document.getElementById("formRegister");
+
+formRegister.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const newUser = getDataForm(formRegister);
+
+  newUser.creationDate = new Date();
+  newUser.validate = false;
+  console.log(newUser);
+
+  const response = await createUser(newUser);
+
+  if (response.status === 201) {
+    users.push(response.data); 
+    console.log("El usuario ha sido creado exitosamente");    
+  } else {
+    console.log("Ha ocurrido un error al crear el usuario");
+  }
+});
+
 
 //ver contraseña
 
