@@ -1,3 +1,6 @@
+import { getDataForm } from '../modules/getDataForm.js';
+import endpoints from '../services/data.js';
+import { getUser } from '../services/userServices.js';
 import "../styles/style.scss";
 import image from "../assets/images/logo-bordeado.png";
 import fondoImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
@@ -10,6 +13,45 @@ document.body.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.400), rg
 url(${fondoImage})`;
 //document.body.style.backgroundImage = `url(${fondoImage})`
 //document.body.style.filter = 'brightness(0.5)'; se aplica filtro a todo
+
+//////// ----------------FUNCIONES FORM LOGIN
+
+//-----Declaración de variables----
+
+const formLogin = document.getElementById("formLogin");
+
+//-----Declaración de funciones----
+const login = async (userData) => {
+  const url = endpoints.getAnUser(userData.phoneNumber, userData.password);
+  const userLogged = await getUser(url);
+  if (userLogged) {
+    window.location.href = "./home.html";
+    alert(`Bienvenid@ ${userLogged.name}`);
+  } else {
+    alert("Credenciales incorrectas");
+  }
+};
+//------Ejecutar-----
+
+formLogin.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const userData = getDataForm(formLogin);
+  login(userData);
+});
+
+//ver contraseña
+
+const contrasena = document.getElementById("contrasena");
+const verContrasena = document.getElementById("ver_contrasena");
+
+verContrasena.addEventListener("click", () => {
+  if (contrasena.type === "password") {
+    contrasena.type = "text";
+  } else {
+    contrasena.type = "password";
+  }
+});
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

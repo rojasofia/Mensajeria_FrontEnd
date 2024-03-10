@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/d8d37f6198.js" crossorigin="anonymous"></script>
-    <title>Mensajeria</title>
+    <title>Talk2me</title>
   </head>
 
   <body>
@@ -17,33 +17,38 @@
   
   <div class="form-modal">
       <div class="form-toggle">
-          <button id="login-toggle">log in</button>
-          <button id="signup-toggle">sign up</button>
+          <button id="login-toggle">Iniciar sesión</button>
+          <button id="signup-toggle">Registrarse</button>
       </div>
   
       <div id="login-form">
-          <form>
-              <input type="text" placeholder="Ingrese tú número de celular" />
-              <input type="password" placeholder="Ingrese su contraseña" />
-              <button type="button" class="btn login">login</button>
+          <form id="formLogin">
+              <label for="">Número de celular</label>
+              <input type="number" placeholder="1234567890" name="phoneNumber"/>
+              <label for="">Contraseña</label>
+              <div class="contraseña">
+                <input id="contrasena" type="password" placeholder="xxxxxxxxx" name="password"/>
+                <button type="button" id="ver_contrasena" class="fa fa-eye"></button>
+              </div>
+              <button type="submit" class="btn login">Ingresar</button>
           </form>
       </div>
   
       <div id="signup-form" style="display: none">
           <form>
-              <input class="form-input" id="name" name="name" type="text" placeholder="Ingresa tu nombre" required />
+              <input class="form-input" id="name" name="name" type="text" placeholder="Nombre" required />
               <p class="form__input-error" id="error_name"></p>
   
-              <input class="form-input" id="phone" name="phone" type="number" placeholder="Ingresa tu número de celular" required />
+              <input class="form-input" id="phone" name="phone" type="number" placeholder="Número de celular" required />
               <p class="form__input-error" id="error_phone"></p>
   
-              <input class="form-input" id="password" name="password" type="password" placeholder="Crea una contraseña" required />
+              <input class="form-input" id="password" name="password" type="password" placeholder="Crear contraseña" required />
               <p class="form__input-error" id="error_password"></p>
   
-              <input class="form-input" id="url" name="url" type="text" placeholder="Ingresa tu imagen de perfil" required />
+              <input class="form-input" id="url" name="url" type="url" placeholder="Ingresa tu imagen de perfil" required />
             <p class="form__input-error" id="error_url"></p>
 
-              <button type="button" class="btn signup">create account</button>
+              <button type="submit" class="btn signup">Crear cuenta</button>
           </form>
       </div>
   </div>

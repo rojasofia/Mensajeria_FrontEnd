@@ -34,6 +34,13 @@ header {
   box-shadow: 0 6px 30px 5px #2dbeb1;
 }
 
+.form-modal label {
+  font-style: normal;
+  color: $color-font;
+  font-size: 12pt;
+  margin-left: 15px;
+}
+
 .form-modal button {
   cursor: pointer;
   position: relative;
@@ -164,7 +171,7 @@ header {
  input {
   position: relative;
   width: 100%;
-  font-size: 1em;
+  font-size: 12pt;
   padding: 1.2em 1.7em 1.2em 1.7em;
   margin-top: 0.6em;
   margin-bottom: 0.6em;
@@ -172,7 +179,7 @@ header {
   border: none;
   background: #ebebeb;
   outline: none;
-  font-weight: bold;
+  font-weight: light;
   transition: 0.4s;
 
   &:focus,
@@ -181,7 +188,7 @@ header {
   }
 
   &::-webkit-input-placeholder {
-    color: #222;
+    color: #646464;
   }
 }
 
@@ -230,6 +237,26 @@ p {
   color:$color-acento;
   
 }
+
+.contraseña {
+  display: flex;
+  justify-content: center;
+}
+
+#ver_contrasena {
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  padding: 0 5px;
+  border: none;
+  background-color:transparent;
+  cursor: pointer;
+}
+
+#ver_contrasena:hover {
+  color: $secundary-color;
+}
+
 
 @media only screen and (max-width: 500px) {
   .form-modal {
