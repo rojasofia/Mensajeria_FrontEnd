@@ -1,17 +1,80 @@
+import { getDataForm } from '../modules/getDataForm.js';
+import endpoints, { users } from '../services/data.js';
+import { getUser } from '../services/userServices.js';
+import { createUser } from '../services/registerUsers.js';
 import "../styles/style.scss";
 import image from "../assets/images/logo-bordeado.png";
 import fondoImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 const logoImage = document.getElementById("logo");
 logoImage.setAttribute("src", image);
 
 document.body.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.400), rgba(0, 0, 0, 0.300)),
 url(${fondoImage})`;
-
 //document.body.style.backgroundImage = `url(${fondoImage})`
 //document.body.style.filter = 'brightness(0.5)'; se aplica filtro a todo
 
+//////// ----------------FUNCIONES FORM LOGIN
+
+//-----Declaración de variables----
+
+const formLogin = document.getElementById("formLogin");
+
+//-----Declaración de funciones----
+const login = async (userData) => {
+  const url = endpoints.getAnUser(userData.phoneNumber, userData.password);
+  const userLogged = await getUser(url);
+  if (userLogged) {
+    window.location.href = "./home.html";
+    alert(`Bienvenid@ ${userLogged.name}`);
+  } else {
+    alert("Credenciales incorrectas");
+  }
+};
+//------Ejecutar-----
+
+formLogin.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const userData = getDataForm(formLogin);
+  login(userData);
+});
+
+/////FUNCIONES REGISTER SIGN UP
+
+const formRegister = document.getElementById("formRegister");
+
+formRegister.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const newUser = getDataForm(formRegister);
+
+  newUser.creationDate = new Date();
+  newUser.validate = false;
+  console.log(newUser);
+
+  const response = await createUser(newUser);
+
+  if (response.status === 201) {
+    users.push(response.data); 
+    console.log("El usuario ha sido creado exitosamente");    
+  } else {
+    console.log("Ha ocurrido un error al crear el usuario");
+  }
+});
+
+
+//ver contraseña
+
+const contrasena = document.getElementById("contrasena");
+const verContrasena = document.getElementById("ver_contrasena");
+
+verContrasena.addEventListener("click", () => {
+  if (contrasena.type === "password") {
+    contrasena.type = "text";
+  } else {
+    contrasena.type = "password";
+  }
+});
 document.addEventListener("DOMContentLoaded", function () {
   // Funciones para activar y desactivar el login/sing Up
   function toggleLogin() {
