@@ -66,13 +66,15 @@ formRegister.addEventListener("submit", async (e) => {
 //ver contraseña
 
 const contrasena = document.getElementById("contrasena");
-const verContrasena = document.getElementById("ver_contrasena");
+const iconoOjo = document.getElementById("icon_eye");
 
-verContrasena.addEventListener("click", () => {
+iconoOjo.addEventListener("click", () => {
   if (contrasena.type === "password") {
     contrasena.type = "text";
+    iconoOjo.className = "fa-solid fa-eye-slash";
   } else {
     contrasena.type = "password";
+    iconoOjo.className = "fa-solid fa-eye";
   }
 });
 document.addEventListener("DOMContentLoaded", function () {
@@ -94,15 +96,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Agregar eventos de clic para cambiar el color al hacer clic en "Sign Up" o "Login"
   document.getElementById("signup-toggle").addEventListener("click", function () {
     this.classList.add("active");
-    document.getElementById("login-toggle").classList.remove("active");
-    toggleSignup();
+    document.getElementById("login-toggle").classList.remove("active");toggleSignup();
     document.getElementById("login-toggle").classList.add("signup-mode");
   });
 
   document.getElementById("login-toggle").addEventListener("click", function () {
     this.classList.add("active");
-    document.getElementById("signup-toggle").classList.remove("active");
-    toggleLogin();
+    document.getElementById("signup-toggle").classList.remove("active");toggleLogin();
     document.getElementById("login-toggle").classList.remove("signup-mode");
   });
 
@@ -177,21 +177,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     
-      function showErrorMessage(errorId, errorMessage) {
-        const errorElement = document.getElementById(errorId);
-        errorElement.style.display = "block";
-    
-        if (window.getComputedStyle(errorElement).display === 'block') {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: errorMessage,
-            footer: '<a href="#">Why do I have this issue?</a>'
-          });
-        }
+      function showSuccessAlert() {
+        Swal.fire({
+          title: "Se ha registrado correctamente.",
+          width: 600,
+          padding: "3em",
+          color: "#716add",
+        }).then(() => {
+          // Limpiar los campos del formulario después de cerrar la alerta de éxito
+          document.getElementById("name").value = "";
+          document.getElementById("phone").value = "";
+          document.getElementById("password").value = "";
+          document.getElementById("url").value = "";
+          window.location.href = "./home.html";
+        });
       }
     });
-    
 
 // codigo de la profe
 

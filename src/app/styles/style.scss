@@ -187,9 +187,6 @@ header {
     transform: scaleX(1.02);
   }
 
-  &::-webkit-input-placeholder {
-    color: #646464;
-  }
 }
 
 p {
@@ -238,25 +235,11 @@ p {
   
 }
 
-.contraseña {
-  display: flex;
-  justify-content: center;
-}
-
-#ver_contrasena {
-  width: 20px;
-  height: 20px;
-  font-size: 16px;
-  padding: 0 5px;
-  border: none;
-  background-color:transparent;
+#icon_eye{
+  left: 23rem;
+  top: 212px;
   cursor: pointer;
 }
-
-#ver_contrasena:hover {
-  color: $secundary-color;
-}
-
 
 @media only screen and (max-width: 500px) {
   .form-modal {
