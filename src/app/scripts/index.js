@@ -63,7 +63,7 @@ formRegister.addEventListener("submit", async (e) => {
 });
 
 
-//ver contraseña
+//ver contraseña login
 
 const contrasena = document.getElementById("contrasena");
 const iconoOjo = document.getElementById("icon_eye");
@@ -77,6 +77,23 @@ iconoOjo.addEventListener("click", () => {
     iconoOjo.className = "fa-solid fa-eye";
   }
 });
+
+//ver contraseña register
+
+const contrasenaReg = document.getElementById("password");
+const iconoOjo2 = document.getElementById("icon_eye2");
+
+iconoOjo2.addEventListener("click", () => {
+  if (contrasenaReg.type === "password") {
+    contrasenaReg.type = "text";
+    iconoOjo2.className = "fa-solid fa-eye-slash";
+  } else {
+    contrasenaReg.type = "password";
+    iconoOjo2.className = "fa-solid fa-eye";
+  }
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
   // Funciones para activar y desactivar el login/sing Up
   function toggleLogin() {
@@ -107,44 +124,44 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Agregar un evento de clic al botón de registro
-  document.querySelector(".btn.signup").addEventListener("click", function () {
-    // Reiniciar los estilos y mensajes de error
-    resetFormStyles();
+  // document.querySelector(".btn.signup").addEventListener("click", function () {
+  //   // Reiniciar los estilos y mensajes de error
+  //   resetFormStyles();
     
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const password = document.getElementById("password").value;
-        const url = document.getElementById("url").value;
+  //       const name = document.getElementById("name").value;
+  //       const phone = document.getElementById("phone").value;
+  //       const password = document.getElementById("password").value;
+  //       const url = document.getElementById("url").value;
     
-        if (!name.match(/^[a-zA-ZÀ-ÿ\s]{1,30}$/)) {
-          showErrorMessage("error_name", "El nombre debe contener maximo 30 letras, no debe contener caracteres.");
-        }
+  //       if (!name.match(/^[a-zA-ZÀ-ÿ\s]{1,30}$/)) {
+  //         showErrorMessage("error_name", "El nombre debe contener maximo 30 letras, no debe contener caracteres.");
+  //       }
     
-        if (!phone.match(/^\d{10}$/)) {
-          showErrorMessage("error_phone", "El telefono debe contener hasta 14 números");
-        }
+  //       if (!phone.match(/^\d{10}$/)) {
+  //         showErrorMessage("error_phone", "El telefono debe contener hasta 14 números");
+  //       }
     
-        if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/)) {
-          showErrorMessage("error_password", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial");
-        }
+  //       if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/)) {
+  //         showErrorMessage("error_password", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial");
+  //       }
     
-        if (!isValidImageURL(url)) {
-          showErrorMessage("error_url", "La imagen debe ser formato .jpg, .jpeg, .png o .gif");
-        }
+  //       if (!isValidImageURL(url)) {
+  //         showErrorMessage("error_url", "La imagen debe ser formato .jpg, .jpeg, .png o .gif");
+  //       }
     
-        // Verificar si todos los campos son válidos
-        if (isValidName(name) && isValidPhone(phone) && isValidPassword(password) && isValidImageURL(url)) {
-          // Si todos los campos son válidos, mostrar el SweetAlert
-          showSuccessAlert();
-        }
-      });
+  //       // Verificar si todos los campos son válidos
+  //       if (isValidName(name) && isValidPhone(phone) && isValidPassword(password) && isValidImageURL(url)) {
+  //         // Si todos los campos son válidos, mostrar el SweetAlert
+  //         showSuccessAlert();
+  //       }
+  //     });
     
       function isValidName(name) {
         return name.match(/^[a-zA-ZÀ-ÿ\s]{1,40}$/);
       }
     
-      function isValidPhone(phone) {
-        return phone.match(/^\d{10}$/);
+      function isValidPhone(phoneNumber) {
+        return phoneNumber.match(/^\d{10}$/);
       }
     
       function isValidPassword(password) {

@@ -37,17 +37,24 @@
   
       <div id="signup-form" style="display: none">
           <form id="formRegister">
-              <input class="form-input" id="name" name="name" type="text" placeholder="Nombre" required />
+              <label for="">Nombre</label>
+              <input class="form-input" id="name" name="name" type="text" placeholder="Nombre Apellido" required />
               <p class="form__input-error" id="error_name"></p>
   
-              <input class="form-input" id="phone" name="phone" type="number" placeholder="Número de celular" required />
+              <label for="">Número de celular</label>
+              <input class="form-input" id="phoneNumber" name="phoneNumber" type="number" placeholder="1234567890" required />
               <p class="form__input-error" id="error_phone"></p>
-  
-              <input class="form-input" id="password" name="password" type="password" placeholder="Crear contraseña" required />
-              <p class="form__input-error" id="error_password"></p>
-  
-              <input class="form-input" id="url" name="url" type="url" placeholder="Ingresa tu imagen de perfil" required />
-            <p class="form__input-error" id="error_url"></p>
+
+              <div class="contraseña__Register">
+                <label for="">Crear contraseña</label>
+                <input class="form-input" id="password" name="password" type="password" placeholder="xxxxxxxxx" required />
+                <i id="icon_eye2" class="fa-solid fa-eye"></i>
+                <p class="form__input-error" id="error_password"></p>
+              </div>              
+
+              <label for="">Link de imagen de perfil</label>
+              <input class="form-input" id="profileImageUrl" name="profileImageUrl" type="url" placeholder="https://miPerfil/8f5e52.jpg" required />
+              <p class="form__input-error" id="error_url"></p>
 
               <button type="submit" class="btn signup">Crear cuenta</button>
           </form>
@@ -56,7 +63,7 @@
     
 
     <a href="./home.html">Ir a home</a>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
   </body>
 </html>
