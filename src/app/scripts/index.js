@@ -29,11 +29,30 @@ const login = async (userData) => {
   const url = endpoints.getAnUser(userData.phoneNumber, userData.password);
   const userLogged = await getUser(url);
   if (userLogged) {
-    // Si el usuario está autenticado correctamente, redirigir a la página de inicio
-    window.location.href = "./home.html";
-    alert(`Bienvenid@ ${userLogged.name}`);
+    // Si el usuario está autenticado correctamente, redirigir a la página de Home
+
+    Swal.fire({
+      title: `Bienvenid@ ${userLogged.name}`,
+      width: 600,
+      padding: "3em",
+      color: "#716add",
+      backdrop: `rgba(0,0,123,0.4)`,
+      confirmButtonColor: "#716add",
+      confirmButtonText: "Continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById("phoneNumber").value = "";
+        document.getElementById("password").value = "";
+        window.location.href = "./home.html";
+      }
+    });
   } else {
-    alert("Credenciales incorrectas");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Parece que estas ingresando mal ó no estas registrado!",
+      footer: '<a href="./index.html">Registrate!</a>',
+    });
   }
 };
 
