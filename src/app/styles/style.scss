@@ -1,6 +1,10 @@
 @import "./modules/variables.scss";
 @import "./modules/universal.scss";
-
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 // logo
 body {
   background-color: rgb(231, 231, 231);
@@ -240,7 +244,11 @@ p {
   top: 212px;
   cursor: pointer;
 }
-
+#icon_eye2{
+  left: 23rem;
+  top: 18.5rem;
+  cursor: pointer;
+}
 @media only screen and (max-width: 500px) {
   .form-modal {
     width: 100%;
