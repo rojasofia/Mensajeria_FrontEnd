@@ -30,7 +30,7 @@ const login = async (userData) => {
   const userLogged = await getUser(url);
   if (userLogged) {
     // Si el usuario está autenticado correctamente, redirigir a la página de Home
-
+    sessionStorage.setItem('userId', userLogged.id);
     Swal.fire({
       title: `Bienvenid@ ${userLogged.name}`,
       width: 600,
