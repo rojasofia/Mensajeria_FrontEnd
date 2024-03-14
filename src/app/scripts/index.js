@@ -101,20 +101,19 @@ function showErrorMessage(elementId, message) {
 
 // Evento que se ejecuta cuando se carga el documento
 document.addEventListener("DOMContentLoaded", function () {
-  // Función para cambiar a la vista de registro
-  function toggleLogin() {
-    document.getElementById("login-toggle").classList.add("active");
-    document.getElementById("signup-toggle").classList.remove("active");
-    document.getElementById("signup-form").style.display = "none";
-    document.getElementById("login-form").style.display = "block";
-  }
-
-  // Función para cambiar a la vista de inicio de sesión
   function toggleSignup() {
     document.getElementById("login-toggle").classList.remove("active");
     document.getElementById("signup-toggle").classList.add("active");
     document.getElementById("login-form").style.display = "none";
     document.getElementById("signup-form").style.display = "block";
+  }
+
+  // Función para cambiar a la vista de inicio de sesión
+  function toggleLogin() {
+    document.getElementById("login-toggle").classList.add("active");
+    document.getElementById("signup-toggle").classList.remove("active");
+    document.getElementById("signup-form").style.display = "none";
+    document.getElementById("login-form").style.display = "block";
   }
 
   // Evento para cambiar a la vista de registro
@@ -136,75 +135,90 @@ document.addEventListener("DOMContentLoaded", function () {
       toggleLogin();
       document.getElementById("login-toggle").classList.remove("signup-mode");
     });
+  // Evento para procesar el registro de usuario
+  const formRegister = document.getElementById("formRegister");
+  formRegister.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const newUser = getDataForm(formRegister);
 
-  // Evento para validar y procesar el registro de usuario
-  document.querySelector(".btn.signup").addEventListener("click", function () {
-    resetFormStyles();
+    newUser.creationDate = new Date();
+    newUser.validate = false;
+    console.log(newUser);
 
-    const formRegister = document.getElementById("formRegister");
+    // Validar los campos del formulario antes de enviar la solicitud de creación de usuario
+    const name = document.getElementById("name").value;
+    const phoneNumber = document.getElementById("phoneNumber").value;
+    const password = document.getElementById("password").value;
+    const profileImageUrl = document.getElementById("profileImageUrl").value;
 
-    formRegister.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const newUser = getDataForm(formRegister);
+    // Validar que el número de teléfono no esté registrado
+    const userExists = await checkPhoneNumberExistence(phoneNumber);
+    if (userExists) {
+      showErrorMessage(
+        "error_phone",
+        "El número de teléfono ya está registrado."
+      );
+      showSwalError();
+      return;
+    }
 
-      newUser.creationDate = new Date();
-      newUser.validate = false;
-      console.log(newUser);
+    if (!isValidName(name)) {
+      showErrorMessage(
+        "error_name",
+        "El nombre debe contener máximo 40 letras y no debe contener caracteres especiales."
+      );
+      showSwalError();
+      return;
+    }
 
-      // Validar los campos del formulario antes de enviar la solicitud de creación de usuario
-      const name = document.getElementById("name").value;
-      const phoneNumber = document.getElementById("phoneNumber").value;
-      const password = document.getElementById("password").value;
-      const profileImageUrl = document.getElementById("profileImageUrl").value;
+    if (!isValidPhone(phoneNumber)) {
+      showErrorMessage("error_phone", "El teléfono debe contener 10 dígitos.");
+      showSwalError();
+      return;
+    }
 
-      if (!isValidName(name)) {
-        showErrorMessage(
-          "error_name",
-          "El nombre debe contener máximo 40 letras y no debe contener caracteres especiales."
+    if (!isValidPassword(password)) {
+      showErrorMessage(
+        "error_password",
+        "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial."
+      );
+      showSwalError();
+      return;
+    }
+
+    if (!isValidImageURL(profileImageUrl)) {
+      showErrorMessage(
+        "error_profileImageUrl",
+        "La URL de la imagen no es válida."
+      );
+      showSwalError();
+      return;
+    }
+    // Función para verificar si un número de teléfono ya está registrado en el backend
+    async function checkPhoneNumberExistence(phoneNumber) {
+      try {
+        const response = await fetch(
+          `https://backmensajeriafrontend-production.up.railway.app/users?phoneNumber=${phoneNumber}`
         );
-        showSwalError();
-        return;
+        const data = await response.json();
+        return data.length > 0;
+      } catch (error) {
+        console.error("Error al verificar el número de teléfono:", error);
+        return false;
       }
+    }
 
-      if (!isValidPhone(phoneNumber)) {
-        showErrorMessage(
-          "error_phone",
-          "El teléfono debe contener 10 dígitos."
-        );
-        showSwalError();
-        return;
-      }
+    // Si todos los campos son válidos, entonces creamos el usuario
+    const response = await createUser(newUser);
 
-      if (!isValidPassword(password)) {
-        showErrorMessage(
-          "error_password",
-          "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial."
-        );
-        showSwalError();
-        return;
-      }
-
-      if (!isValidImageURL(profileImageUrl)) {
-        showErrorMessage(
-          "error_profileImageUrl",
-          "La URL de la imagen no es válida."
-        );
-        showSwalError();
-        return;
-      }
-
-      // Si todos los campos son válidos, entonces creamos el usuario
-      const response = await createUser(newUser);
-
-      if (response.status === 201) {
-        users.push(response.data);
-        console.log("El usuario ha sido creado exitosamente");
-        showSuccessAlert();
-      } else {
-        console.log("Ha ocurrido un error al crear el usuario");
-        alert("Ha ocurrido un error al crear el usuario");
-      }
-    });
+    if (response.status === 201) {
+      users.push(response.data);
+      console.log("El usuario ha sido creado exitosamente");
+      showSuccessAlert();
+    } else {
+      console.log("Ha ocurrido un error al crear el usuario");
+      alert("Ha ocurrido un error al crear el usuario");
+    }
   });
 });
 
@@ -218,7 +232,9 @@ function isValidPhone(phoneNumber) {
 }
 
 function isValidPassword(password) {
-  return password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/);
+  return password.match(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*-+_?&/#()]).{8,}$/
+  );
 }
 
 function isValidImageURL(input) {
