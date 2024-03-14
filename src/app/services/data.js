@@ -6,6 +6,8 @@ const endpoints = {
   users: `${URL_BASE}users`,
   getDataUser: (id) =>
     `${URL_BASE}users?id=${id}`,
+
+  messages:`${URL_BASE}messages`
 };
 
 export default endpoints;

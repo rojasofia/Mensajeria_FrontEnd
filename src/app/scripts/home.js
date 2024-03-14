@@ -1,5 +1,4 @@
 import "../styles/home.scss";
-import logo from "../assets/images/logo-bordeado.png";
 import chatImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
 import axios from "axios";
 import endpoints from "../services/data";
@@ -12,15 +11,11 @@ chatBackground.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.400), r
 url(${chatImage})`
 
 
-const logoHome = document.getElementById("logo-home");
-logoHome.setAttribute("src", logo);
-
-
 const fillUserHeader = async () => {
   try {
     // Obtener el ID del usuario del almacenamiento local
     const userId = sessionStorage.getItem('userId');
-    console.log(userId)
+
     if (!userId) {
       console.error('No se encontró el ID del usuario en el almacenamiento local');
       return;
@@ -28,7 +23,6 @@ const fillUserHeader = async () => {
 
     // Realizar una solicitud al servidor para obtener los datos del usuario
     const url = endpoints.getDataUser(userId);
-    console.log(url)
     const response = await axios.get(url);
     
     if (response.status !== 200) {
@@ -39,8 +33,6 @@ const fillUserHeader = async () => {
     // Obtener los datos del usuario de la respuesta
     const userData = response.data[0];
 
-    console.log("hola",userData)
-
 
     // Verificar si se obtuvo correctamente la imagen de perfil del usuario
     if (userData.profileImageUrl) {
@@ -49,8 +41,10 @@ const fillUserHeader = async () => {
 
       // Actualizar la imagen del usuario en el HTML dentro del contenedor profile
       profileContainer.innerHTML = `
+      <figure class="home__modal-header-img">
         <img src="${userData.profileImageUrl}" alt="${userData.name}">
         <h4>¡Hola, ${userData.name}!</h4>
+      </figure>
       `;
     } else {
       console.error('No se pudo obtener la imagen del usuario o no se proporcionó una URL de imagen de perfil');
@@ -60,8 +54,85 @@ const fillUserHeader = async () => {
   }
 };
 
-// Llamar a la función para llenar el header con la foto del usuario logueado al cargar la página
-window.addEventListener('DOMContentLoaded', fillUserHeader);
+
+// Función para obtener y mostrar los chats del usuario logueado
+const recentChats = async () => {
+  try {
+    // Obtener el ID del usuario logueado del sessionStorage
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      console.error('No se encontró el ID del usuario en el sessionStorage');
+      return;
+    }
+
+    // Realizar una solicitud al servidor para obtener todas las conversaciones
+    const urlConversations = endpoints.messages;
+    const responseConversations = await axios.get(urlConversations);
+    
+    if (responseConversations.status !== 200) {
+      console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
+      return;
+    }
+
+    // Obtener todas las conversaciones del servidor
+    const conversations = responseConversations.data;
+
+    // Obtener el contenedor de los chats en el HTML
+    const chatsContainer = document.getElementById('recent-chats');
+
+    // Limpiar el contenedor antes de agregar los nuevos chats
+    chatsContainer.innerHTML = '';
+
+    // Iterar sobre las conversaciones del usuario y agregarlas al contenedor en el HTML
+    for (const chat of conversations) {
+      if (chat.senderUser == userId || chat.recipientUser == userId) {
+        let otherUserId = chat.senderUser;
+        if (chat.senderUser == userId) {
+          otherUserId = chat.recipientUser;
+        }
+
+        // Realizar una solicitud al servidor para obtener los datos del usuario
+        const urlUser = endpoints.getDataUser(otherUserId);
+        const responseUser = await axios.get(urlUser);
+
+        if (responseUser.status === 200) {
+          const userData = responseUser.data[0];
+          const lastMessage = chat.conversations[chat.conversations.length - 1];
+
+          // Crear el elemento HTML para el chat
+          const chatElement = document.createElement('article');
+          chatElement.classList.add('home__modal-chat');
+
+          // Agregar el contenido del chat al elemento HTML
+          chatElement.innerHTML = `
+            <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+            <section class="home__modal-chat-preview">
+              <span class="home__modal-chat-contact">
+                <h4>${userData.name}</h4>
+                <p>${lastMessage.date}</p>
+              </span>
+              <span class="home__modal-chat-text">
+                <i class="fa-solid fa-check-double"></i>
+                <p class="home__modal-description">${lastMessage.message}</p>
+              </span>
+            </section>
+          `;
+
+          // Agregar el chat al contenedor de chats en el HTML
+          chatsContainer.appendChild(chatElement);
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error al obtener y mostrar los chats del usuario:', error);
+  }
+};
+
+// Llamar a la función para obtener y mostrar los chats del usuario logueado al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+  fillUserHeader();
+  recentChats();
+});
 
 
 
