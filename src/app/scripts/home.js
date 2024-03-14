@@ -15,7 +15,7 @@ const fillUserHeader = async () => {
   try {
     // Obtener el ID del usuario del almacenamiento local
     const userId = sessionStorage.getItem('userId');
-    console.log(userId)
+
     if (!userId) {
       console.error('No se encontró el ID del usuario en el almacenamiento local');
       return;
@@ -32,8 +32,6 @@ const fillUserHeader = async () => {
 
     // Obtener los datos del usuario de la respuesta
     const userData = response.data[0];
-
-    console.log("hola",userData)
 
 
     // Verificar si se obtuvo correctamente la imagen de perfil del usuario
@@ -68,21 +66,16 @@ const recentChats = async () => {
     }
 
     // Realizar una solicitud al servidor para obtener todas las conversaciones
-    const url = endpoints.messages;
-    const response = await axios.get(url);
+    const urlConversations = endpoints.messages;
+    const responseConversations = await axios.get(urlConversations);
     
-    if (response.status !== 200) {
-      console.error('Error al obtener los datos de las conversaciones:', response.statusText);
+    if (responseConversations.status !== 200) {
+      console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
       return;
     }
 
     // Obtener todas las conversaciones del servidor
-    const conversations = response.data;
-
-    // Filtrar las conversaciones para obtener solo aquellas en las que el usuario logueado está involucrado
-    const userChats = conversations.filter(chat =>
-      chat.senderUser == userId || chat.recipientUser == userId,
-    );
+    const conversations = responseConversations.data;
 
     // Obtener el contenedor de los chats en el HTML
     const chatsContainer = document.getElementById('recent-chats');
@@ -90,32 +83,46 @@ const recentChats = async () => {
     // Limpiar el contenedor antes de agregar los nuevos chats
     chatsContainer.innerHTML = '';
 
-    // Iterar sobre los chats del usuario y agregarlos al contenedor en el HTML
-    userChats.forEach(chat => {
-      // Crear el elemento HTML para el chat
+    // Iterar sobre las conversaciones del usuario y agregarlas al contenedor en el HTML
+    for (const chat of conversations) {
+      if (chat.senderUser == userId || chat.recipientUser == userId) {
+        let otherUserId = chat.senderUser;
+        if (chat.senderUser == userId) {
+          otherUserId = chat.recipientUser;
+        }
 
-      const chatElement = document.createElement('article');
-      chatElement.classList.add('home__modal-chat');
+        // Realizar una solicitud al servidor para obtener los datos del usuario
+        const urlUser = endpoints.getDataUser(otherUserId);
+        const responseUser = await axios.get(urlUser);
 
-      // Agregar el contenido del chat al elemento HTML
-      chatElement.innerHTML = `
-        <img class="home__modal-chat-img" src="..." alt="Usuario de la conversación">
-        <section class="home__modal-chat-preview">
-          <span class="home__modal-chat-contact">
-            <h4>${chat.recipientUser}</h4>
-            <p>Viernes</p>
-          </span>
-          <span class="home__modal-chat-text">
-            <i class="fa-solid fa-check-double"></i>
-            <p class="home__modal-description">Lorem ipsum dolor, sit...</p>
-          </span>
-        </section>
-      `;
+        if (responseUser.status === 200) {
+          const userData = responseUser.data[0];
+          const lastMessage = chat.conversations[chat.conversations.length - 1];
 
-      // Agregar el chat al contenedor de chats en el HTML
-      chatsContainer.appendChild(chatElement);
-    });
+          // Crear el elemento HTML para el chat
+          const chatElement = document.createElement('article');
+          chatElement.classList.add('home__modal-chat');
 
+          // Agregar el contenido del chat al elemento HTML
+          chatElement.innerHTML = `
+            <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+            <section class="home__modal-chat-preview">
+              <span class="home__modal-chat-contact">
+                <h4>${userData.name}</h4>
+                <p>${lastMessage.date}</p>
+              </span>
+              <span class="home__modal-chat-text">
+                <i class="fa-solid fa-check-double"></i>
+                <p class="home__modal-description">${lastMessage.message}</p>
+              </span>
+            </section>
+          `;
+
+          // Agregar el chat al contenedor de chats en el HTML
+          chatsContainer.appendChild(chatElement);
+        }
+      }
+    }
   } catch (error) {
     console.error('Error al obtener y mostrar los chats del usuario:', error);
   }
