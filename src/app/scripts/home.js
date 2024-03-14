@@ -45,10 +45,6 @@ const fillUserHeader = async () => {
         <img src="${userData.profileImageUrl}" alt="${userData.name}">
         <h4>¡Hola, ${userData.name}!</h4>
       </figure>
-      <div class="home__modal-header-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input class="home__modal-header-input" type="text" name="search" placeholder="Buscar o iniciar un nuevo chat">
-      </div>
       `;
     } else {
       console.error('No se pudo obtener la imagen del usuario o no se proporcionó una URL de imagen de perfil');
@@ -219,3 +215,20 @@ document.querySelector('.home__modal-header-input').addEventListener('input', se
       recentChats();
       searchChats()
     });
+
+//FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
+
+//VISUALIZACION MODAL
+const profileButton = document.getElementById("profile");
+const modal = document.querySelector(".section__modal-container");
+const closeButton = document.getElementById("closeModal");
+
+const toggleModal = (button, modal) => {
+  button.addEventListener("click", () => {
+    // modal.classList.toggle("hidden");
+    modal.classList.toggle("show");
+  });
+};
+
+toggleModal(profileButton, modal);
+toggleModal(closeButton, modal);

@@ -11,7 +11,8 @@
 <body>
     <main id="home" class="home">
         <section id="home-modal" class="home__modal">
-            <header class="home__modal-header" id="profile">
+            <header class="home__modal-header">
+                <div id="profile"></div>
                 <div class="home__modal-header-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input class="home__modal-header-input" type="text" name="search"
@@ -51,6 +52,22 @@
                 <i class="fa-solid fa-microphone fa-lg"></i>
             </footer>
         </section>
+
+         <!-- MODAL PROFILE -->
+  <section class="section__modal-container hidden">
+    <section class="section__modal-profile">
+      <div class="section__description">
+        <h1 class="section__modal-title">Tu Perfil</h1>
+        <button id="closeModal" class="section__modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="containerProfile">
+        <!-- Aqui pegamos los detalles del modal -->
+      </div>
+    </section>
+  </section>
+
+
+        
     </main>
 
 </body>
