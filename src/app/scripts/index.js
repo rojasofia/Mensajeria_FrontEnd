@@ -141,8 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const newUser = getDataForm(formRegister);
 
-    newUser.creationDate = new Date();
-    newUser.validate = false;
+    newUser.lastOnline = new Date();
+    newUser.flag = false;
     console.log(newUser);
 
     // Validar los campos del formulario antes de enviar la solicitud de creación de usuario
