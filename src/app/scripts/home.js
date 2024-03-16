@@ -2,6 +2,7 @@ import "../styles/home.scss";
 import chatImage from "../assets/images/1Login-Register/Textura-forms-fondo.png";
 import axios from "axios";
 import endpoints from "../services/data";
+import toggleModal from "../modules/toggleModal";
 
 // Definir userId como variable global
 let userId;
@@ -225,18 +226,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
-
-//VISUALIZACION MODAL
 const profileButton = document.getElementById("profile");
 const modal = document.querySelector(".section__modal-container");
 const closeButton = document.getElementById("closeModal");
-
-const toggleModal = (button, modal) => {
-  button.addEventListener("click", () => {
-    // modal.classList.toggle("hidden");
-    modal.classList.toggle("show");
-  });
-};
 
 toggleModal(profileButton, modal);
 toggleModal(closeButton, modal);
