@@ -3,6 +3,7 @@ import chatImage from "../assets/images/1Login-Register/Textura-forms-fondo.png"
 import axios from "axios";
 import endpoints from "../services/data";
 import toggleModal from "../modules/toggleModal";
+import printInfoProfile from "../modules/printInfoProfile";
 
 // Definir userId como variable global
 let userId;
@@ -229,6 +230,11 @@ document.addEventListener("DOMContentLoaded", () => {
 const profileButton = document.getElementById("profile");
 const modal = document.querySelector(".section__modal-container");
 const closeButton = document.getElementById("closeModal");
+const containerProfile = document.getElementById("containerProfile");
+
+
 
 toggleModal(profileButton, modal);
 toggleModal(closeButton, modal);
+printInfoProfile(profileButton, containerProfile);
+
