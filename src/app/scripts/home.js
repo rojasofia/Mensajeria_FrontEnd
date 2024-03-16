@@ -3,18 +3,23 @@ import chatImage from "../assets/images/1Login-Register/Textura-forms-fondo.png"
 import axios from "axios";
 import endpoints from "../services/data";
 
+// Definir userId como variable global
+let userId;
+
+// Objeto para almacenar usuarios únicos
+const uniqueUsers = {};
+
 const chatBackground = document.getElementById("home-chat-conversation");
 
 chatBackground.setAttribute("src", chatImage);
 
 chatBackground.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.400), rgba(0, 0, 0, 0.300)),
-url(${chatImage})`
-
+url(${chatImage})`;
 
 const fillUserHeader = async () => {
   try {
     // Obtener el ID del usuario del almacenamiento local
-    const userId = sessionStorage.getItem('userId');
+    userId = sessionStorage.getItem('userId');
 
     if (!userId) {
       console.error('No se encontró el ID del usuario en el almacenamiento local');
@@ -24,7 +29,7 @@ const fillUserHeader = async () => {
     // Realizar una solicitud al servidor para obtener los datos del usuario
     const url = endpoints.getDataUser(userId);
     const response = await axios.get(url);
-    
+
     if (response.status !== 200) {
       console.error('Error al obtener los datos del usuario:', response.statusText);
       return;
@@ -99,27 +104,33 @@ const recentChats = async () => {
           const userData = responseUser.data[0];
           const lastMessage = chat.conversations[chat.conversations.length - 1];
 
-          // Crear el elemento HTML para el chat
-          const chatElement = document.createElement('article');
-          chatElement.classList.add('home__modal-chat');
+          // Verificar si el usuario ya existe en la lista antes de agregarlo
+          if (!uniqueUsers[userData.id]) {
+            // Si el usuario no existe en el objeto de usuarios únicos, lo agregamos
+            uniqueUsers[userData.id] = userData;
 
-          // Agregar el contenido del chat al elemento HTML
-          chatElement.innerHTML = `
-            <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
-            <section class="home__modal-chat-preview">
-              <span class="home__modal-chat-contact">
-                <h4>${userData.name}</h4>
-                <p>${lastMessage.date}</p>
-              </span>
-              <span class="home__modal-chat-text">
-                <i class="fa-solid fa-check-double"></i>
-                <p class="home__modal-description">${lastMessage.message}</p>
-              </span>
-            </section>
-          `;
+            // Crear el elemento HTML para el chat
+            const chatElement = document.createElement('article');
+            chatElement.classList.add('home__modal-chat');
 
-          // Agregar el chat al contenedor de chats en el HTML
-          chatsContainer.appendChild(chatElement);
+            // Agregar el contenido del chat al elemento HTML
+            chatElement.innerHTML = `
+              <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+              <section class="home__modal-chat-preview">
+                <span class="home__modal-chat-contact">
+                  <h4>${userData.name}</h4>
+                  <p>${lastMessage.date}</p>
+                </span>
+                <span class="home__modal-chat-text">
+                  <i class="fa-solid fa-check-double"></i>
+                  <p class="home__modal-description">${lastMessage.message}</p>
+                </span>
+              </section>
+            `;
+
+            // Agregar el chat al contenedor de chats en el HTML
+            chatsContainer.appendChild(chatElement);
+          }
         }
       }
     }
@@ -127,9 +138,6 @@ const recentChats = async () => {
     console.error('Error al obtener y mostrar los chats del usuario:', error);
   }
 };
-
-// Llamar a la función para obtener y mostrar los chats del usuario logueado al cargar la página
-
 
 
 // Filtrar por nombre
@@ -173,8 +181,10 @@ const searchChats = async () => {
           const userData = responseUser.data[0];
           const lastMessage = chat.conversations[chat.conversations.length - 1];
 
-          // Verificar si el nombre del usuario o el mensaje coinciden con el criterio de búsqueda
-          if (userData.name.toLowerCase().includes(searchValue) || lastMessage.message.toLowerCase().includes(searchValue)) {
+          // Verificar si el nombre del usuario, número de teléfono o el mensaje coinciden con el criterio de búsqueda
+          if (userData.name.toLowerCase().includes(searchValue) || 
+              userData.phoneNumber.toLowerCase().includes(searchValue) || 
+              lastMessage.message.toLowerCase().includes(searchValue)) {
             // Crear el elemento HTML para el chat
             const chatElement = document.createElement('article');
             chatElement.classList.add('home__modal-chat');
@@ -208,13 +218,11 @@ const searchChats = async () => {
 // Llamar a la función para realizar la búsqueda de chats cuando haya un evento de entrada en el campo de búsqueda
 document.querySelector('.home__modal-header-input').addEventListener('input', searchChats);
 
-
-// Filtrar por numero
-    document.addEventListener("DOMContentLoaded", () => {
-      fillUserHeader();
-      recentChats();
-      searchChats()
-    });
+// Llamar a la función para obtener y mostrar los chats del usuario logueado al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+  fillUserHeader();
+  recentChats();
+});
 
 //FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
 
