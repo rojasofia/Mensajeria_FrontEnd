@@ -59,8 +59,37 @@
         <button id="closeModal" class="section__modal-close"><i class="fa-solid fa-arrow-left"></i></button>
         <p class="section__modal-title">Tu Perfil</p>
       </div>
-      <div id="containerProfile">
-        <!-- Aqui pegamos los detalles del modal -->
+
+      <div class="modal__profile">
+        <form id="formProfile" class="modal__profile-form">
+            <h5>Edita tu Perfil</h5>
+
+            <label for="inputImg" class="modal__profile-img">
+                <img src="https://i.pinimg.com/736x/70/85/54/7085548f3d0372a08aea0291ddcee895.jpg" alt="">
+                <input class="form-input" id="profileImageUrl" name="profileImageUrl" type="url"
+                    placeholder="https://miPerfil/8f5e52.jpg" required />
+            </label>
+
+            <div class="modal__profile-containerInfo">
+                
+                <label for="name" class="modal__profile-label">
+                    <p> <i class="fa-solid fa-pen-to-square"></i> Tu nombre</p>                
+                    <input id="name" name="name" type="text">
+                </label>
+                
+                <label for="userInfo" class="modal__profile-label">
+                    <p> <i class="fa-solid fa-pen-to-square"></i> Tu descripcion</p>
+                    <input id="userInfo" name="userInfo" type="text">
+                </label>
+            </div>
+
+            <div class="modal__profile-buttons">
+                <button type="submit" class="button button--active">Aceptar Cambios</button>
+                <button class="button">Cerrar Sesión</button>
+            </div>
+
+        </form>
+
       </div>
   </section>
 
