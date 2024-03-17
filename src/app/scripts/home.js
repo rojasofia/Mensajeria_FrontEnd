@@ -3,6 +3,10 @@ import chatImage from "../assets/images/1Login-Register/Textura-forms-fondo.png"
 import axios from "axios";
 import endpoints from "../services/data";
 import toggleModal from "../modules/toggleModal";
+import getUserInfo from "../modules/getUserInfo";
+import showDefaultOrUserProfileImage from "../modules/showDefaultOrUserProfileImage";
+import showPreviewContainer from "../modules/showPreviewContainer";
+import initializePage from "../modules/initializePage";
 
 // Definir userId como variable global
 let userId;
@@ -65,7 +69,7 @@ const fillUserHeader = async () => {
 const recentChats = async () => {
   try {
     // Obtener el ID del usuario logueado del sessionStorage
-    const userId = sessionStorage.getItem('userId');
+    userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.error('No se encontró el ID del usuario en el sessionStorage');
       return;
@@ -141,12 +145,17 @@ const recentChats = async () => {
 };
 
 
-// Filtrar por nombre
 // Función para realizar la búsqueda de chats
 const searchChats = async () => {
   try {
     // Obtener el valor del campo de búsqueda
     const searchValue = document.querySelector('.home__modal-header-input').value.toLowerCase();
+
+    // Verificar si userId está definido
+    if (!userId) {
+      console.error('No se encontró el ID del usuario');
+      return;
+    }
 
     // Realizar una solicitud al servidor para obtener todas las conversaciones
     const urlConversations = endpoints.messages;
@@ -225,10 +234,58 @@ document.addEventListener("DOMContentLoaded", () => {
   recentChats();
 });
 
-//FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
+
+
+
+
+
+
+// Codigo de Gaby: FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
 const profileButton = document.getElementById("profile");
 const modal = document.querySelector(".section__modal-container");
 const closeButton = document.getElementById("closeModal");
 
 toggleModal(profileButton, modal);
 toggleModal(closeButton, modal);
+
+const previewImg = document.getElementById("previewImg");
+const inputUrl = document.getElementById('profileImageUrl');
+
+// Función para obtener la información del usuario actual
+getUserInfo(userId);
+// Función para mostrar la imagen predeterminada o la imagen del usuario actual
+showDefaultOrUserProfileImage(userId);
+// Función para inicializar la página
+initializePage(userId);
+// Event Listener para cambiar la imagen de previsualización al escribir una URL
+showPreviewContainer(inputUrl, previewImg);
+
+
+// Event Listener para enviar el formulario... (no pude separarlo, depende mucho de las otras funciones)
+document.getElementById('formProfile').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const imgUrl = document.getElementById('profileImageUrl').value;
+    const name = document.getElementById('name').value;
+    const userInfo = document.getElementById('userInfo').value;
+
+    try {
+        const userId = sessionStorage.getItem('userId');
+        const userData = await getUserInfo(userId);
+
+        if (userData) {
+            userData.profileImageUrl = imgUrl;
+            userData.name = name;
+            userData.userInfo = userInfo;
+
+            await axios.put(`${endpoints.users}/${userId}`, userData);
+
+            console.log('¡La información del usuario se ha actualizado correctamente!');
+            location.reload();
+        } else {
+            console.error('No se pudo obtener la información del usuario para actualizar.');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});

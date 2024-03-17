@@ -65,7 +65,7 @@
             <h5>Edita tu Perfil</h5>
 
             <label for="inputImg" class="modal__profile-img">
-                <img src="https://i.pinimg.com/736x/70/85/54/7085548f3d0372a08aea0291ddcee895.jpg" alt="">
+                <img id="previewImg" src="" alt="">
                 <input class="form-input" id="profileImageUrl" name="profileImageUrl" type="url"
                     placeholder="https://miPerfil/8f5e52.jpg" required />
             </label>
@@ -73,12 +73,18 @@
             <div class="modal__profile-containerInfo">
                 
                 <label for="name" class="modal__profile-label">
-                    <p> <i class="fa-solid fa-pen-to-square"></i> Tu nombre</p>                
+                    <div>
+                        <i class="fa-solid fa-pen-to-square"></i> 
+                        <p> Tu nombre </p>
+                    </div>                
                     <input id="name" name="name" type="text">
                 </label>
                 
                 <label for="userInfo" class="modal__profile-label">
-                    <p> <i class="fa-solid fa-pen-to-square"></i> Tu descripcion</p>
+                    <div>
+                        <i class="fa-solid fa-pen-to-square"></i> 
+                        <p> Tu descripción </p>
+                    </div>     
                     <input id="userInfo" name="userInfo" type="text">
                 </label>
             </div>
