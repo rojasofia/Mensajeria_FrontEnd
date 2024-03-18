@@ -7,9 +7,11 @@ import getUserInfo from "../modules/getUserInfo";
 import showDefaultOrUserProfileImage from "../modules/showDefaultOrUserProfileImage";
 import showPreviewContainer from "../modules/showPreviewContainer";
 import initializePage from "../modules/initializePage";
-
+import { getConversation } from "../services/userServices";
+import { getDataUser } from "../services/userServices";
 // Definir userId como variable global
 let userId;
+let friendId;
 
 // Objeto para almacenar usuarios únicos
 const uniqueUsers = {};
@@ -17,9 +19,9 @@ const uniqueUsers = {};
 const chatBackground = document.getElementById("home-chat-conversation");
 
 chatBackground.setAttribute("src", chatImage);
-
 chatBackground.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.400), rgba(0, 0, 0, 0.300)),
 url(${chatImage})`;
+
 
 const fillUserHeader = async () => {
   try {
@@ -78,7 +80,7 @@ const recentChats = async () => {
     // Realizar una solicitud al servidor para obtener todas las conversaciones
     const urlConversations = endpoints.messages;
     const responseConversations = await axios.get(urlConversations);
-    
+
     if (responseConversations.status !== 200) {
       console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
       return;
@@ -133,6 +135,12 @@ const recentChats = async () => {
               </section>
             `;
 
+            // Agregar un evento clic al elemento de chat para almacenar el ID del amigo en sessionStorage
+            chatElement.addEventListener('click', function () {
+              sessionStorage.setItem('friendId', userData.id);
+              location.reload();
+            });
+
             // Agregar el chat al contenedor de chats en el HTML
             chatsContainer.appendChild(chatElement);
           }
@@ -160,7 +168,7 @@ const searchChats = async () => {
     // Realizar una solicitud al servidor para obtener todas las conversaciones
     const urlConversations = endpoints.messages;
     const responseConversations = await axios.get(urlConversations);
-    
+
     if (responseConversations.status !== 200) {
       console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
       return;
@@ -174,7 +182,7 @@ const searchChats = async () => {
 
     // Limpiar el contenedor antes de agregar los nuevos chats
     chatsContainer.innerHTML = '';
-    
+
     // Iterar sobre las conversaciones del usuario y agregarlas al contenedor en el HTML
     for (const chat of conversations) {
       if (chat.senderUser == userId || chat.recipientUser == userId) {
@@ -192,13 +200,13 @@ const searchChats = async () => {
           const lastMessage = chat.conversations[chat.conversations.length - 1];
 
           // Verificar si el nombre del usuario, número de teléfono o el mensaje coinciden con el criterio de búsqueda
-          if (userData.name.toLowerCase().includes(searchValue) || 
-              userData.phoneNumber.toLowerCase().includes(searchValue) || 
-              lastMessage.message.toLowerCase().includes(searchValue)) {
+          if (userData.name.toLowerCase().includes(searchValue) ||
+            userData.phoneNumber.toLowerCase().includes(searchValue) ||
+            lastMessage.message.toLowerCase().includes(searchValue)) {
             // Crear el elemento HTML para el chat
             const chatElement = document.createElement('article');
             chatElement.classList.add('home__modal-chat');
-            
+
             // Agregar el contenido del chat al elemento HTML
             chatElement.innerHTML = `
               <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
@@ -213,7 +221,7 @@ const searchChats = async () => {
                 </span>
                 </section>
             `;
-            
+
             // Agregar el chat al contenedor de chats en el HTML
             chatsContainer.appendChild(chatElement);
           }
@@ -227,17 +235,6 @@ const searchChats = async () => {
 
 // Llamar a la función para realizar la búsqueda de chats cuando haya un evento de entrada en el campo de búsqueda
 document.querySelector('.home__modal-header-input').addEventListener('input', searchChats);
-
-// Llamar a la función para obtener y mostrar los chats del usuario logueado al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-  fillUserHeader();
-  recentChats();
-});
-
-
-
-
-
 
 
 // Codigo de Gaby: FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
@@ -263,29 +260,102 @@ showPreviewContainer(inputUrl, previewImg);
 
 // Event Listener para enviar el formulario... (no pude separarlo, depende mucho de las otras funciones)
 document.getElementById('formProfile').addEventListener('submit', async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    const imgUrl = document.getElementById('profileImageUrl').value;
-    const name = document.getElementById('name').value;
-    const userInfo = document.getElementById('userInfo').value;
+  const imgUrl = document.getElementById('profileImageUrl').value;
+  const name = document.getElementById('name').value;
+  const userInfo = document.getElementById('userInfo').value;
 
-    try {
-        const userId = sessionStorage.getItem('userId');
-        const userData = await getUserInfo(userId);
+  try {
+    const userId = sessionStorage.getItem('userId');
+    const userData = await getUserInfo(userId);
 
-        if (userData) {
-            userData.profileImageUrl = imgUrl;
-            userData.name = name;
-            userData.userInfo = userInfo;
+    if (userData) {
+      userData.profileImageUrl = imgUrl;
+      userData.name = name;
+      userData.userInfo = userInfo;
 
-            await axios.put(`${endpoints.users}/${userId}`, userData);
+      await axios.put(`${endpoints.users}/${userId}`, userData);
 
-            console.log('¡La información del usuario se ha actualizado correctamente!');
-            location.reload();
-        } else {
-            console.error('No se pudo obtener la información del usuario para actualizar.');
-        }
-    } catch (error) {
-        console.error(error);
+      console.log('¡La información del usuario se ha actualizado correctamente!');
+      location.reload();
+    } else {
+      console.error('No se pudo obtener la información del usuario para actualizar.');
     }
+  } catch (error) {
+    console.error(error);
+  }
 });
+
+
+//Funcion para pintar los mensajes del chat
+const printMessages = async () => {
+  try {
+    const friendId = sessionStorage.getItem('friendId');
+    if (!friendId) {
+      console.error('No se encontró el ID del amigo en el sessionStorage');
+
+      const headerConversation = document.querySelector(".home__chat-header")
+      headerConversation.style.display= "none"
+      const footerConversation = document.querySelector(".home__chat-footer")
+      footerConversation.style.display= "none"
+      return;
+    }
+
+    const conversationData = await getConversation(userId, friendId);
+    const chatConversationContainer = document.getElementById('home-chat-conversation');
+   
+    const friendUserData = await getDataUser(friendId);
+    if (!friendUserData) {
+      console.error('No se pudieron obtener los datos del usuario amigo');
+      return;
+    }
+
+    const openChatData = document.querySelector('.home__chat-header');
+    openChatData.innerHTML = `
+    <img src="${friendUserData.profileImageUrl}" alt="${friendUserData.name}"/>
+    <div class="home__chat-header-userFriend">
+      <h4>${friendUserData.name}</h4>
+      <p>${friendUserData.lastOnline}</p>
+    </div>
+    <i class="fa-solid fa-magnifying-glass"></i>
+    `;
+
+    // Iterar sobre los mensajes de la conversación
+    conversationData[0].conversations.forEach(message => {
+    
+      const messageContainer = document.createElement('div');
+      const messageText = document.createElement('p');
+      const messageHour = document.createElement('p');
+      messageHour.classList.add("hour")
+      
+      messageText.textContent = message.message;
+      messageHour.textContent = message.hour;
+
+      messageContainer.appendChild(messageText);
+      messageContainer.appendChild(messageHour);
+
+      // Asignar la clase correspondiente según el remitente del mensaje
+      if (message.sendBy === userId) {
+        messageContainer.classList.add('home__chat-message-user');
+      } else if (message.sendBy === friendId) {
+        messageContainer.classList.add('home__chat-message-userFriend');
+      }
+
+      chatConversationContainer.appendChild(messageContainer);
+    });
+
+  } catch (error) {
+    console.error('Error al imprimir los mensajes del chat:', error);
+  }
+};
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  fillUserHeader();
+  recentChats();
+  printMessages(); 
+});
+
+
+
