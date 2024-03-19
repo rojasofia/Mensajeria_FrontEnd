@@ -7,6 +7,7 @@ import getUserInfo from "../modules/getUserInfo";
 import showDefaultOrUserProfileImage from "../modules/showDefaultOrUserProfileImage";
 import showPreviewContainer from "../modules/showPreviewContainer";
 import initializePage from "../modules/initializePage";
+import lastOnline from "../modules/lastOnline";
 
 // Definir userId como variable global
 let userId;
@@ -289,3 +290,6 @@ document.getElementById('formProfile').addEventListener('submit', async (event) 
         console.error(error);
     }
 });
+
+// Función para mostrar la ultima conexion
+lastOnline();

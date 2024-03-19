@@ -23,7 +23,7 @@
             <!-- Contenido de los chats recientes -->
             <div id="recent-chats"></div>
         </section>
-          
+
         <section id="home-chat" class="home__chat">
             <!-- Aquí va la conversación -->
             <header class="home__chat-header">
@@ -35,7 +35,7 @@
                 </div>
                 <i class="fa-solid fa-magnifying-glass"></i>
             </header>
-            <div id="home-chat-conversation"  class="home__chat-conversation">
+            <div id="home-chat-conversation" class="home__chat-conversation">
                 <div class="home__chat-message-user">
                     <p>Hola como estas amiga</p>
                     <p class="hour">4:40pm</p>
@@ -53,54 +53,45 @@
             </footer>
         </section>
 
-         <!-- MODAL PROFILE -->
-  <section class="section__modal-container hidden">
-      <div class="section__description">
-        <button id="closeModal" class="section__modal-close"><i class="fa-solid fa-arrow-left"></i></button>
-        <p class="section__modal-title">Tu Perfil</p>
-      </div>
-
-      <div class="modal__profile">
-        <form id="formProfile" class="modal__profile-form">
-            <h5>Edita tu Perfil</h5>
-
-            <label for="inputImg" class="modal__profile-img">
-                <img id="previewImg" src="" alt="">
-                <input class="form-input" id="profileImageUrl" name="profileImageUrl" type="url"
-                    placeholder="https://miPerfil/8f5e52.jpg" required />
-            </label>
-
-            <div class="modal__profile-containerInfo">
-                
-                <label for="name" class="modal__profile-label">
-                    <div>
-                        <i class="fa-solid fa-pen-to-square"></i> 
-                        <p> Tu nombre </p>
-                    </div>                
-                    <input id="name" name="name" type="text">
-                </label>
-                
-                <label for="userInfo" class="modal__profile-label">
-                    <div>
-                        <i class="fa-solid fa-pen-to-square"></i> 
-                        <p> Tu descripción </p>
-                    </div>     
-                    <input id="userInfo" name="userInfo" type="text">
-                </label>
+        <!-- MODAL PROFILE -->
+        <section class="section__modal-container hidden">
+            <div class="section__description">
+                <button id="closeModal" class="section__modal-close"><i class="fa-solid fa-arrow-left"></i></button>
+                <p class="section__modal-title">Tu Perfil</p>
             </div>
+            <div class="modal__profile">
+                <form id="formProfile" class="modal__profile-form">
+                    <h5>Edita tu Perfil</h5>
+                    <label for="inputImg" class="modal__profile-img">
+                        <img id="previewImg" src="" alt="">
+                        <input class="form-input" id="profileImageUrl" name="profileImageUrl" type="url"
+                            placeholder="https://miPerfil/8f5e52.jpg" required />
+                    </label>
+                    <div class="modal__profile-containerInfo">
+                        <label for="name" class="modal__profile-label">
+                            <div>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <p> Tu nombre </p>
+                            </div>
+                            <input id="name" name="name" type="text">
+                        </label>
 
-            <div class="modal__profile-buttons">
-                <button type="submit" class="button button--active">Aceptar Cambios</button>
-                <button class="button">Cerrar Sesión</button>
+                        <label for="userInfo" class="modal__profile-label">
+                            <div>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <p> Tu descripción </p>
+                            </div>
+                            <input id="userInfo" name="userInfo" type="text">
+                        </label>
+                    </div>
+                    <div class="modal__profile-buttons">
+                        <button type="submit" class="button button--active">Aceptar Cambios</button>
+                        <button id="logoutButton" class="button">Cerrar Sesión</button>
+                    </div>
+                </form>
             </div>
+        </section>
 
-        </form>
-
-      </div>
-  </section>
-
-
-        
     </main>
 
 </body>
