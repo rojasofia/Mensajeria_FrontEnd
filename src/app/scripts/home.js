@@ -11,7 +11,6 @@ import { getConversation } from "../services/userServices";
 import { getDataUser } from "../services/userServices";
 // Definir userId como variable global
 let userId;
-let friendId;
 
 // Objeto para almacenar usuarios únicos
 const uniqueUsers = {};
@@ -237,26 +236,6 @@ const searchChats = async () => {
 document.querySelector('.home__modal-header-input').addEventListener('input', searchChats);
 
 
-// Codigo de Gaby: FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
-const profileButton = document.getElementById("profile");
-const modal = document.querySelector(".section__modal-container");
-const closeButton = document.getElementById("closeModal");
-
-toggleModal(profileButton, modal);
-toggleModal(closeButton, modal);
-
-const previewImg = document.getElementById("previewImg");
-const inputUrl = document.getElementById('profileImageUrl');
-
-// Función para obtener la información del usuario actual
-getUserInfo(userId);
-// Función para mostrar la imagen predeterminada o la imagen del usuario actual
-showDefaultOrUserProfileImage(userId);
-// Función para inicializar la página
-initializePage(userId);
-// Event Listener para cambiar la imagen de previsualización al escribir una URL
-showPreviewContainer(inputUrl, previewImg);
-
 
 // Event Listener para enviar el formulario... (no pude separarlo, depende mucho de las otras funciones)
 document.getElementById('formProfile').addEventListener('submit', async (event) => {
@@ -296,15 +275,15 @@ const printMessages = async () => {
       console.error('No se encontró el ID del amigo en el sessionStorage');
 
       const headerConversation = document.querySelector(".home__chat-header")
-      headerConversation.style.display= "none"
+      headerConversation.style.display = "none"
       const footerConversation = document.querySelector(".home__chat-footer")
-      footerConversation.style.display= "none"
+      footerConversation.style.display = "none"
       return;
     }
 
     const conversationData = await getConversation(userId, friendId);
     const chatConversationContainer = document.getElementById('home-chat-conversation');
-   
+
     const friendUserData = await getDataUser(friendId);
     if (!friendUserData) {
       console.error('No se pudieron obtener los datos del usuario amigo');
@@ -323,11 +302,13 @@ const printMessages = async () => {
 
     // Iterar sobre los mensajes de la conversación
     conversationData[0].conversations.forEach(message => {
-    
+
       const messageContainer = document.createElement('div');
       const messageText = document.createElement('p');
       const messageHour = document.createElement('p');
       messageHour.classList.add("hour")
+      const icon = document.createElement('i');
+      icon.classList.add('fa-solid', 'fa-check-double');
       
       messageText.textContent = message.message;
       messageHour.textContent = message.hour;
@@ -336,9 +317,15 @@ const printMessages = async () => {
       messageContainer.appendChild(messageHour);
 
       // Asignar la clase correspondiente según el remitente del mensaje
-      if (message.sendBy === userId) {
+      if (message.sendBy == userId) {
         messageContainer.classList.add('home__chat-message-user');
-      } else if (message.sendBy === friendId) {
+        
+        messageContainer.appendChild(icon)
+        if (!message.flag) {
+          icon.style.color = 'gray'; // Cambiar color a gris
+        }
+
+      } else if (message.sendBy == friendId) {
         messageContainer.classList.add('home__chat-message-userFriend');
       }
 
@@ -351,10 +338,34 @@ const printMessages = async () => {
 };
 
 
+
+// Codigo de Gaby: FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
+const profileButton = document.getElementById("profile");
+const modal = document.querySelector(".section__modal-container");
+const closeButton = document.getElementById("closeModal");
+
+toggleModal(profileButton, modal);
+toggleModal(closeButton, modal);
+
+const previewImg = document.getElementById("previewImg");
+const inputUrl = document.getElementById('profileImageUrl');
+
+// Función para obtener la información del usuario actual
+getUserInfo(userId);
+// Función para mostrar la imagen predeterminada o la imagen del usuario actual
+showDefaultOrUserProfileImage(userId);
+// Función para inicializar la página
+initializePage(userId);
+// Event Listener para cambiar la imagen de previsualización al escribir una URL
+showPreviewContainer(inputUrl, previewImg);
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   fillUserHeader();
   recentChats();
-  printMessages(); 
+  printMessages();
 });
 
 

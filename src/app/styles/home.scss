@@ -67,7 +67,7 @@ img {
     padding: $padding-header-home;
     @include center($justify-content: space-around);
     cursor:pointer;
-    
+
     &--active {
         background-color: #ededed;
     }
@@ -170,12 +170,19 @@ img {
         padding: 1rem;
         @include rounded-message-borders-user(10px);
         align-self: flex-end;
-
+        margin: 2rem;
         .hour{
             margin-top: 0.3rem;
             margin-bottom: 0;
             color: #9D9D9D;
             align-self: flex-end;
+        }
+
+        i{
+            color: #0097A7;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2px;
         }
 
         &Friend{
@@ -190,7 +197,7 @@ img {
             .hour{
                 margin-top: 0.3rem;
                 margin-bottom: 0;
-                color: #9D9D9D;
+                color: #e9e1e1;
                 align-self: flex-end;
             }
             

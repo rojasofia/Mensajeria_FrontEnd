@@ -27,8 +27,7 @@ export const getConversation = async (userId, friendId) => {
     }
 
     return conversations;
-
-    console.lo
+    
   } catch (error) {
     console.error("Error al obtener la conversación:", error);
     throw error;
