@@ -3,8 +3,12 @@ import chatImage from "../assets/images/1Login-Register/Textura-forms-fondo.png"
 import axios from "axios";
 import endpoints from "../services/data";
 import toggleModal from "../modules/toggleModal";
-import printInfoProfile from "../modules/printInfoProfile";
-
+import getUserInfo from "../modules/getUserInfo";
+import showDefaultOrUserProfileImage from "../modules/showDefaultOrUserProfileImage";
+import showPreviewContainer from "../modules/showPreviewContainer";
+import initializePage from "../modules/initializePage";
+import { getConversation } from "../services/userServices";
+import { getDataUser } from "../services/userServices";
 // Definir userId como variable global
 let userId;
 
@@ -236,5 +240,27 @@ const containerProfile = document.getElementById("containerProfile");
 
 toggleModal(profileButton, modal);
 toggleModal(closeButton, modal);
-printInfoProfile(profileButton, containerProfile);
+
+const previewImg = document.getElementById("previewImg");
+const inputUrl = document.getElementById('profileImageUrl');
+
+// Función para obtener la información del usuario actual
+getUserInfo(userId);
+// Función para mostrar la imagen predeterminada o la imagen del usuario actual
+showDefaultOrUserProfileImage(userId);
+// Función para inicializar la página
+initializePage(userId);
+// Event Listener para cambiar la imagen de previsualización al escribir una URL
+showPreviewContainer(inputUrl, previewImg);
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  fillUserHeader();
+  recentChats();
+  printMessages();
+});
+
+
 
