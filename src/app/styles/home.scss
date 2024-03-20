@@ -48,6 +48,13 @@ img {
                 border: none;
                 border-radius: 2rem;
                 font-size: 0.98rem;
+                padding-left: 4.4rem;
+                @include tablet {
+                    padding-left: 4rem;
+                }
+                @include desktop {
+                    padding-left: 3rem;
+                }
             }
         }
         &-input::placeholder {
@@ -66,7 +73,6 @@ img {
 .home__modal-chat {
     padding: $padding-header-home;
     @include center($justify-content: space-around);
-    cursor:pointer;
 
     &--active {
         background-color: #ededed;
@@ -110,6 +116,82 @@ img {
         i {
             color: $color-acento;
         }
+    }
+    .hidden {
+        display: none;
+    }
+    
+    .show {
+        display: block; 
+    }
+
+}
+
+// button-show
+.button-show{ 
+    display: flex;
+    justify-content: space-around;
+.button {
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+   }
+   
+   .button::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #2DBEB1 0%, #F84914 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+   }
+   
+   .button:hover::before {
+    width: 9em;
+   }
+}
+// Contenedores de los chats recientes
+#available-users {
+    padding: $padding-header-home;
+    @include center($justify-content: space-around);
+
+    .user__avatar {
+        @include widthImage;
+    }
+
+    .user__name {
+        font-size: 1rem;
+        color: $secundary-color;
+    }
+
+    .user__phone {
+        color: #9d9d9d;
+        font-size: 1rem;
+    }
+
+    .user__start-conversation-button {
+        color: $color-acento;
+        padding: 0.5rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5rem;
     }
 }
 
@@ -170,19 +252,12 @@ img {
         padding: 1rem;
         @include rounded-message-borders-user(10px);
         align-self: flex-end;
-        margin: 2rem;
+
         .hour{
             margin-top: 0.3rem;
             margin-bottom: 0;
             color: #9D9D9D;
             align-self: flex-end;
-        }
-
-        i{
-            color: #0097A7;
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 2px;
         }
 
         &Friend{
@@ -197,7 +272,7 @@ img {
             .hour{
                 margin-top: 0.3rem;
                 margin-bottom: 0;
-                color: #e9e1e1;
+                color: #9D9D9D;
                 align-self: flex-end;
             }
             
@@ -242,12 +317,8 @@ img {
   }
 
   .section__modal-container {
-    position: fixed;
-
-    display: flex;
     flex-direction: column;
-    align-items: center;
-
+    position: fixed;
     width: 35%;
     height: 100%;
     background-color: #ffff;
@@ -257,7 +328,6 @@ img {
     @include center($justify-content: flex-start);
     padding-left: 1rem;
     width: 100%;
-    height: 6rem;
     height: 4.58rem;
     background-color: $primary-color;
   }
@@ -291,132 +361,21 @@ img {
   }
   
 
-.modal__profile {
-    width: 86%;
-    height: 80%;
-    margin-top: 2rem;
-    h5 {
-        text-align: center;
-        text-transform: uppercase;
-        font-size: 1.2rem;
-    }
-    &-form {
-        flex-direction: column;
-    }
-    &-img {
-        @include center;
-        flex-direction: column;
-        padding: 1rem;
-        gap: .5rem;
+.modal__form {
+    @include center();
+    flex-direction: column;
+    gap: 1rem;
 
-        img {
-            border: 2px solid $secundary-color;
-            border-radius: 50%;
-            width: 8rem;
-            height: 8rem;
-            &:hover {
-            border-color: #0097A7;
-            cursor: pointer;
-            }
-        }
+    padding: 4rem;
+    height: 87vh;
+
+    &-img {
+        background-color: palegreen;
     }
-    .form-input {
-        width: 100%;
-        border: 2px solid $secundary-color;
-        border-radius: .625rem;
-        padding: .3rem;
-        margin-top: .5rem;
-        transition: border-color 0.2s ease-in-out;
-        
-        &:focus {
-          border-color: #0097A7;
-          outline: none;
-        }
-    
-        &::placeholder {
-          color: #9E9E9E;
-        }
-      }
-    &-containerInfo {
-        display: flex;
-        flex-direction: column;
-    }
-    &-label {
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem;
-        width: 100%;
-        div {
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            width: 38%;
-            height: 100%;
-        }
-        p {
-            color: $color-font;
-            font-size: .93rem;
-            font-weight: 800;
-        }
-        .fa-pen-to-square {
-            font-size: .8rem;
-            color: $color-acento;
-        }
-        input {
-            width: 14rem;
-            border: none;
-            border-bottom: 2px solid $secundary-color;
-            background-color: transparent;
-            transition: border-color 0.2s ease-in-out;
-            
-            &:focus {
-              border-color: #0097A7;
-              outline: none;
-            }
-        
-            &::placeholder {
-              color: #9E9E9E;
-            }
-        }
+    &-infoUser {
+        background-color: purple;
     }
     &-buttons {
-        @include center;
-        gap: 1rem;
-        flex-direction: column;
-        padding: 1rem;
-        .button {
-            width: 100%;
-            padding: .7813rem 1.875rem;
-            border: 0;
-            border-radius: 6.25rem;
-            background-color: $secundary-color;
-            color: #ffffff;
-            font-weight: Bold;
-            transition: all 0.5s;
-            -webkit-transition: all 0.5s;
-            &--active {
-                background-color: $color-acento;
-            }
-          }
-          
-          .button:hover {
-            background-color: #0097A7;
-            box-shadow: 0 0 20px #6fc5ff50;
-            transform: scale(1.1);
-            cursor: pointer;
-          }
-          
-          .button:active {
-            background-color: $color-acento;
-            transition: all 0.25s;
-            -webkit-transition: all 0.25s;
-            box-shadow: none;
-            transform: scale(0.98);
-          }
-
-          .button--active:active {
-            background-color: $secundary-color;
-        }
-
+        background-color: plum;
     }
 }
