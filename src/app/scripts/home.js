@@ -9,6 +9,7 @@ import showPreviewContainer from "../modules/showPreviewContainer";
 import initializePage from "../modules/initializePage";
 import { getConversation } from "../services/userServices";
 import { getDataUser } from "../services/userServices";
+import lastOnline from "../modules/lastOnline";
 // Definir userId como variable global
 let userId;
 
@@ -361,8 +362,8 @@ showDefaultOrUserProfileImage(userId);
 initializePage(userId);
 // Event Listener para cambiar la imagen de previsualización al escribir una URL
 showPreviewContainer(inputUrl, previewImg);
-
-
+// Función para actulizar la ultima conexion
+lastOnline();
 
 
 document.addEventListener("DOMContentLoaded", () => {
