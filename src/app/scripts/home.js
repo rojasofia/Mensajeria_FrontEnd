@@ -75,7 +75,7 @@ const recentChats = async () => {
 
     const urlConversations = endpoints.messages;
     const responseConversations = await axios.get(urlConversations);
-    
+
     if (responseConversations.status !== 200) {
       console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
       return;
@@ -101,19 +101,54 @@ const recentChats = async () => {
 
             const chatElement = document.createElement('article');
             chatElement.classList.add('home__modal-chat');
-            chatElement.innerHTML = `
-                <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
-                <section class="home__modal-chat-preview">
-                    <span class="home__modal-chat-contact">
-                        <h4>${userData.name}</h4>
-                        <p>${lastMessage.date}</p>
-                    </span>
-                    <span class="home__modal-chat-text">
-                        <i class="fa-solid fa-check-double"></i>
-                        <p class="home__modal-description">${lastMessage.message}</p>
-                    </span>
-                </section>
-            `;
+
+            if(lastMessage.sendBy == userId){
+              
+            if (lastMessage.flag === false) {
+              chatElement.innerHTML = `
+              <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+              <section class="home__modal-chat-preview">
+                  <span class="home__modal-chat-contact">
+                      <h4>${userData.name}</h4>
+                      <p>${lastMessage.date}</p>
+                  </span>
+                  <span class="home__modal-chat-text">
+                  <i class="fa-solid fa-check-double" style="color: gray"></i>
+                      <p class="home__modal-description">${lastMessage.message}</p>
+                  </span>
+              </section>
+          `;
+            } else {
+              chatElement.innerHTML = `
+              <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+              <section class="home__modal-chat-preview">
+                  <span class="home__modal-chat-contact">
+                      <h4>${userData.name}</h4>
+                      <p>${lastMessage.date}</p>
+                  </span>
+                  <span class="home__modal-chat-text">
+                      <i class="fa-solid fa-check-double"></i>
+                      <p class="home__modal-description">${lastMessage.message}</p>
+                  </span>
+              </section>
+          `;
+            }
+              
+            } else{
+              chatElement.innerHTML = `
+              <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+              <section class="home__modal-chat-preview">
+                  <span class="home__modal-chat-contact">
+                      <h4>${userData.name}</h4>
+                      <p>${lastMessage.date}</p>
+                  </span>
+                  <span class="home__modal-chat-text">
+                      <p class="home__modal-description">${lastMessage.message}</p>
+                  </span>
+              </section>
+          `;
+            }
+
             chatElement.addEventListener('click', function () {
               sessionStorage.setItem('friendId', userData.id);
               location.reload();
@@ -149,7 +184,7 @@ const searchUsersToStartConversation = async () => {
 
     const urlUsers = endpoints.users;
     const responseUsers = await axios.get(urlUsers);
-    
+
     if (responseUsers.status !== 200) {
       console.error('Error al obtener los datos de los usuarios:', responseUsers.statusText);
       return;
@@ -201,11 +236,11 @@ function showRecentChats() {
   availableUsersContainer.style.display = 'none';
 }
 
-document.getElementById('button__show-users').addEventListener('click', function() {
+document.getElementById('button__show-users').addEventListener('click', function () {
   showAvailableUsers();
 });
 
-document.getElementById('button__show-chats').addEventListener('click', function() {
+document.getElementById('button__show-chats').addEventListener('click', function () {
   showRecentChats();
 });
 
@@ -262,14 +297,26 @@ const printMessages = async () => {
     }
 
     const openChatData = document.querySelector('.home__chat-header');
-    openChatData.innerHTML = `
-    <img src="${friendUserData.profileImageUrl}" alt="${friendUserData.name}"/>
-    <div class="home__chat-header-userFriend">
-      <h4>${friendUserData.name}</h4>
-      <p>${friendUserData.lastOnline}</p>
-    </div>
-    <i class="fa-solid fa-magnifying-glass"></i>
-    `;
+
+    if (friendUserData.flag === true) {
+      openChatData.innerHTML = `
+      <img src="${friendUserData.profileImageUrl}" alt="${friendUserData.name}"/>
+      <div class="home__chat-header-userFriend">
+        <h4>${friendUserData.name}</h4>
+        <p>En línea</p>
+      </div>
+      <i class="fa-solid fa-magnifying-glass"></i>
+      `;
+    } else {
+      openChatData.innerHTML = `
+      <img src="${friendUserData.profileImageUrl}" alt="${friendUserData.name}"/>
+      <div class="home__chat-header-userFriend">
+        <h4>${friendUserData.name}</h4>
+        <p>Última vez el ${friendUserData.lastOnline}</p>
+      </div>
+      <i class="fa-solid fa-magnifying-glass"></i>
+      `;
+    }
 
     // Iterar sobre los mensajes de la conversación
     conversationData[0].conversations.forEach(message => {
@@ -280,7 +327,7 @@ const printMessages = async () => {
       messageHour.classList.add("hour")
       const icon = document.createElement('i');
       icon.classList.add('fa-solid', 'fa-check-double');
-      
+
       messageText.textContent = message.message;
       messageHour.textContent = message.hour;
 
@@ -290,10 +337,10 @@ const printMessages = async () => {
       // Asignar la clase correspondiente según el remitente del mensaje
       if (message.sendBy == userId) {
         messageContainer.classList.add('home__chat-message-user');
-        
+
         messageContainer.appendChild(icon)
         if (!message.flag) {
-          icon.style.color = 'gray'; 
+          icon.style.color = 'gray';
         }
 
       } else if (message.sendBy == friendId) {
@@ -337,6 +384,5 @@ lastOnline();
 document.addEventListener("DOMContentLoaded", () => {
   fillUserHeader();
   recentChats();
-
   printMessages();
 });

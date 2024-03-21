@@ -58,7 +58,6 @@ img {
             }
         }
         &-input::placeholder {
-            padding-left: 3.4rem;
             @include desktop {
                 padding-left: 2.8rem;
             }
