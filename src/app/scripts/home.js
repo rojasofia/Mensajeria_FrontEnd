@@ -206,8 +206,16 @@ const searchUsersToStartConversation = async () => {
           </div>
           <button class="user__start-conversation-button" data-user-id="${user.id}">Iniciar Conversación</button>
         `;
+
+        userElement.addEventListener('click', function () {
+          sessionStorage.setItem('friendId', user.id);
+          location.reload();
+        });
+
         usersContainer.appendChild(userElement);
+
       }
+      
     }
   } catch (error) {
     console.error('Error al realizar la búsqueda de usuarios:', error);
