@@ -31,6 +31,9 @@ const lastOnline = () => {
                 // Actualizar la propiedad lastOnline del usuario
                 userData.lastOnline = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
 
+                // Actualizar el flag a false
+                userData.flag = false;
+
                 // Realizar la solicitud PUT para actualizar los datos del usuario
                 const updateUserUrl = `${endpoints.users}/${userId}`;
                 const updateResponse = await axios.put(updateUserUrl, userData);

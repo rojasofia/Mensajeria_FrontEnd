@@ -43,7 +43,35 @@ const login = async (userData) => {
       if (result.isConfirmed) {
         document.getElementById("phoneNumber").value = "";
         document.getElementById("password").value = "";
-        window.location.href = "./home.html";
+        // Modificación del flag a true
+        if (userLogged.flag === false) {
+          userLogged.flag = true;
+          console.log("Valor del flag actualizado:", userLogged.flag);
+
+          // Enviar solicitud al miniback para actualizar el flag del usuario
+          const url = `https://backmensajeriafrontend-production.up.railway.app/users/${userLogged.id}`;
+          const data = {
+            flag: userLogged.flag
+          };
+
+          fetch(url, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          }).then(response => {
+            if (response.ok) {
+              console.log("Flag actualizado en el miniback");
+              window.location.href = "./home.html";
+            } else {
+              console.error("Error al actualizar el flag en el miniback");
+            }
+          }).catch(error => {
+            console.error("Error al enviar la solicitud al miniback:", error);
+          });
+
+        }
       }
     });
   } else {
