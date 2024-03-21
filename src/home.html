@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/6cb58dcda6.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/6cb58dcda6.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Home</title>
-</head>
+  </head>
 
 <body>
     <main id="home" class="home">
@@ -16,13 +19,22 @@
                 <div class="home__modal-header-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input class="home__modal-header-input" type="text" name="search"
-                        placeholder="Buscar o iniciar un nuevo chat">
+                        placeholder="Buscar o iniciar un nuevo chat" />
+                        
                 </div>
+                <div class="button-show">
+                    <!-- Botón para mostrar usuarios -->
+                    <button class="button" id="button__show-users">Buscar usuarios</button>
+                    <!-- Botón para mostrar chats recientes -->
+                    <button class="button" id="button__show-chats">Chats</button>
+                  </div>
             </header>
 
-            <!-- Contenido de los chats recientes -->
-            <div id="recent-chats"></div>
-        </section>
+        <!-- Contenedor de los chats recientes -->
+        <div id="recent-chats" class="home__chat-container"></div>
+        <!-- Contenedor de usuarios disponibles para iniciar una conversación -->
+        <div id="available-users" class="home__user-container"></div>
+      </section>
 
         <section id="home-chat" class="home__chat">
             <!-- Aquí va la conversación -->

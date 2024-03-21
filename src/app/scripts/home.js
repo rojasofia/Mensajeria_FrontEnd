@@ -7,16 +7,16 @@ import getUserInfo from "../modules/getUserInfo";
 import showDefaultOrUserProfileImage from "../modules/showDefaultOrUserProfileImage";
 import showPreviewContainer from "../modules/showPreviewContainer";
 import initializePage from "../modules/initializePage";
-import { getConversation } from "../services/userServices";
-import { getDataUser } from "../services/userServices";
+import { getConversation, getDataUser } from "../services/userServices";
+import lastOnline from "../modules/lastOnline";
 // Definir userId como variable global
 let userId;
+let filtersActive = false;
 
 // Objeto para almacenar usuarios únicos
 const uniqueUsers = {};
 
 const chatBackground = document.getElementById("home-chat-conversation");
-
 chatBackground.setAttribute("src", chatImage);
 chatBackground.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.400), rgba(0, 0, 0, 0.300)),
 url(${chatImage})`;
@@ -65,36 +65,25 @@ const fillUserHeader = async () => {
   }
 };
 
-
-// Función para obtener y mostrar los chats del usuario logueado
 const recentChats = async () => {
   try {
-    // Obtener el ID del usuario logueado del sessionStorage
-    userId = sessionStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.error('No se encontró el ID del usuario en el sessionStorage');
       return;
     }
 
-    // Realizar una solicitud al servidor para obtener todas las conversaciones
     const urlConversations = endpoints.messages;
     const responseConversations = await axios.get(urlConversations);
-
+    
     if (responseConversations.status !== 200) {
       console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
       return;
     }
 
-    // Obtener todas las conversaciones del servidor
     const conversations = responseConversations.data;
+    const chatElements = [];
 
-    // Obtener el contenedor de los chats en el HTML
-    const chatsContainer = document.getElementById('recent-chats');
-
-    // Limpiar el contenedor antes de agregar los nuevos chats
-    chatsContainer.innerHTML = '';
-
-    // Iterar sobre las conversaciones del usuario y agregarlas al contenedor en el HTML
     for (const chat of conversations) {
       if (chat.senderUser == userId || chat.recipientUser == userId) {
         let otherUserId = chat.senderUser;
@@ -102,49 +91,45 @@ const recentChats = async () => {
           otherUserId = chat.recipientUser;
         }
 
-        // Realizar una solicitud al servidor para obtener los datos del usuario
-        const urlUser = endpoints.getDataUser(otherUserId);
-        const responseUser = await axios.get(urlUser);
+        if (!filtersActive) {
+          const urlUser = endpoints.getDataUser(otherUserId);
+          const responseUser = await axios.get(urlUser);
 
-        if (responseUser.status === 200) {
-          const userData = responseUser.data[0];
-          const lastMessage = chat.conversations[chat.conversations.length - 1];
+          if (responseUser.status === 200) {
+            const userData = responseUser.data[0];
+            const lastMessage = chat.conversations[chat.conversations.length - 1];
 
-          // Verificar si el usuario ya existe en la lista antes de agregarlo
-          if (!uniqueUsers[userData.id]) {
-            // Si el usuario no existe en el objeto de usuarios únicos, lo agregamos
-            uniqueUsers[userData.id] = userData;
-
-            // Crear el elemento HTML para el chat
             const chatElement = document.createElement('article');
             chatElement.classList.add('home__modal-chat');
-
-            // Agregar el contenido del chat al elemento HTML
             chatElement.innerHTML = `
-              <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
-              <section class="home__modal-chat-preview">
-                <span class="home__modal-chat-contact">
-                  <h4>${userData.name}</h4>
-                  <p>${lastMessage.date}</p>
-                </span>
-                <span class="home__modal-chat-text">
-                  <i class="fa-solid fa-check-double"></i>
-                  <p class="home__modal-description">${lastMessage.message}</p>
-                </span>
-              </section>
+                <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+                <section class="home__modal-chat-preview">
+                    <span class="home__modal-chat-contact">
+                        <h4>${userData.name}</h4>
+                        <p>${lastMessage.date}</p>
+                    </span>
+                    <span class="home__modal-chat-text">
+                        <i class="fa-solid fa-check-double"></i>
+                        <p class="home__modal-description">${lastMessage.message}</p>
+                    </span>
+                </section>
             `;
-
-            // Agregar un evento clic al elemento de chat para almacenar el ID del amigo en sessionStorage
             chatElement.addEventListener('click', function () {
               sessionStorage.setItem('friendId', userData.id);
               location.reload();
             });
 
-            // Agregar el chat al contenedor de chats en el HTML
-            chatsContainer.appendChild(chatElement);
+            chatElements.push(chatElement);
           }
         }
       }
+    }
+
+    const chatsContainer = document.getElementById('recent-chats');
+    chatsContainer.innerHTML = '';
+
+    for (const chatElement of chatElements) {
+      chatsContainer.appendChild(chatElement);
     }
   } catch (error) {
     console.error('Error al obtener y mostrar los chats del usuario:', error);
@@ -153,89 +138,156 @@ const recentChats = async () => {
 
 
 // Función para realizar la búsqueda de chats
-const searchChats = async () => {
+// const searchChats = async () => {
+//   try {
+//     // Obtener el valor del campo de búsqueda
+//     const searchValue = document.querySelector('.home__modal-header-input').value.toLowerCase();
+
+//     // Verificar si userId está definido
+//     if (!userId) {
+//       console.error('No se encontró el ID del usuario');
+//       return;
+//     }
+
+//     // Realizar una solicitud al servidor para obtener todas las conversaciones
+//     const urlConversations = endpoints.messages;
+//     const responseConversations = await axios.get(urlConversations);
+
+//     if (responseConversations.status !== 200) {
+//       console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
+//       return;
+//     }
+
+//     // Obtener todas las conversaciones del servidor
+//     const conversations = responseConversations.data;
+
+//     // Obtener el contenedor de los chats en el HTML
+//     const chatsContainer = document.getElementById('recent-chats');
+
+//     // Limpiar el contenedor antes de agregar los nuevos chats
+//     chatsContainer.innerHTML = '';
+
+//     // Iterar sobre las conversaciones del usuario y agregarlas al contenedor en el HTML
+//     for (const chat of conversations) {
+//       if (chat.senderUser == userId || chat.recipientUser == userId) {
+//         let otherUserId = chat.senderUser;
+//         if (chat.senderUser == userId) {
+//           otherUserId = chat.recipientUser;
+//         }
+
+//         // Realizar una solicitud al servidor para obtener los datos del usuario
+//         const urlUser = endpoints.getDataUser(otherUserId);
+//         const responseUser = await axios.get(urlUser);
+
+//         if (responseUser.status === 200) {
+//           const userData = responseUser.data[0];
+//           const lastMessage = chat.conversations[chat.conversations.length - 1];
+
+//           // Verificar si el nombre del usuario, número de teléfono o el mensaje coinciden con el criterio de búsqueda
+//           if (userData.name.toLowerCase().includes(searchValue) ||
+//             userData.phoneNumber.toLowerCase().includes(searchValue) ||
+//             lastMessage.message.toLowerCase().includes(searchValue)) {
+//             // Crear el elemento HTML para el chat
+//             const chatElement = document.createElement('article');
+//             chatElement.classList.add('home__modal-chat');
+
+//             // Agregar el contenido del chat al elemento HTML
+//             chatElement.innerHTML = `
+//               <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
+//               <section class="home__modal-chat-preview">
+//                 <span class="home__modal-chat-contact">
+//                   <h4>${userData.name}</h4>
+//                   <p>${lastMessage.date}</p>
+//                 </span>
+//                 <span class="home__modal-chat-text">
+//                   <i class="fa-solid fa-check-double"></i>
+//                   <p class="home__modal-description">${lastMessage.message}</p>
+//                 </span>
+//                 </section>
+//             `;
+
+//             // Agregar el chat al contenedor de chats en el HTML
+//             chatsContainer.appendChild(chatElement);
+//           }
+//         }
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Error al realizar la búsqueda de chats:', error);
+//   }
+// };
+
+const searchUsersToStartConversation = async () => {
   try {
-    // Obtener el valor del campo de búsqueda
     const searchValue = document.querySelector('.home__modal-header-input').value.toLowerCase();
 
-    // Verificar si userId está definido
-    if (!userId) {
-      console.error('No se encontró el ID del usuario');
+    if (filtersActive) {
+      const usersContainer = document.getElementById('available-users');
+      usersContainer.innerHTML = '';
       return;
     }
 
-    // Realizar una solicitud al servidor para obtener todas las conversaciones
-    const urlConversations = endpoints.messages;
-    const responseConversations = await axios.get(urlConversations);
-
-    if (responseConversations.status !== 200) {
-      console.error('Error al obtener los datos de las conversaciones:', responseConversations.statusText);
+    const urlUsers = endpoints.users;
+    const responseUsers = await axios.get(urlUsers);
+    
+    if (responseUsers.status !== 200) {
+      console.error('Error al obtener los datos de los usuarios:', responseUsers.statusText);
       return;
     }
 
-    // Obtener todas las conversaciones del servidor
-    const conversations = responseConversations.data;
+    const users = responseUsers.data;
+    const usersContainer = document.getElementById('available-users');
+    usersContainer.innerHTML = '';
 
-    // Obtener el contenedor de los chats en el HTML
-    const chatsContainer = document.getElementById('recent-chats');
-
-    // Limpiar el contenedor antes de agregar los nuevos chats
-    chatsContainer.innerHTML = '';
-
-    // Iterar sobre las conversaciones del usuario y agregarlas al contenedor en el HTML
-    for (const chat of conversations) {
-      if (chat.senderUser == userId || chat.recipientUser == userId) {
-        let otherUserId = chat.senderUser;
-        if (chat.senderUser == userId) {
-          otherUserId = chat.recipientUser;
-        }
-
-        // Realizar una solicitud al servidor para obtener los datos del usuario
-        const urlUser = endpoints.getDataUser(otherUserId);
-        const responseUser = await axios.get(urlUser);
-
-        if (responseUser.status === 200) {
-          const userData = responseUser.data[0];
-          const lastMessage = chat.conversations[chat.conversations.length - 1];
-
-          // Verificar si el nombre del usuario, número de teléfono o el mensaje coinciden con el criterio de búsqueda
-          if (userData.name.toLowerCase().includes(searchValue) ||
-            userData.phoneNumber.toLowerCase().includes(searchValue) ||
-            lastMessage.message.toLowerCase().includes(searchValue)) {
-            // Crear el elemento HTML para el chat
-            const chatElement = document.createElement('article');
-            chatElement.classList.add('home__modal-chat');
-
-            // Agregar el contenido del chat al elemento HTML
-            chatElement.innerHTML = `
-              <img class="home__modal-chat-img" src="${userData.profileImageUrl}" alt="${userData.name}">
-              <section class="home__modal-chat-preview">
-                <span class="home__modal-chat-contact">
-                  <h4>${userData.name}</h4>
-                  <p>${lastMessage.date}</p>
-                </span>
-                <span class="home__modal-chat-text">
-                  <i class="fa-solid fa-check-double"></i>
-                  <p class="home__modal-description">${lastMessage.message}</p>
-                </span>
-                </section>
-            `;
-
-            // Agregar el chat al contenedor de chats en el HTML
-            chatsContainer.appendChild(chatElement);
-          }
-        }
+    for (const user of users) {
+      if (user.name.toLowerCase().includes(searchValue) || user.phoneNumber.toLowerCase().includes(searchValue)) {
+        const userElement = document.createElement('div');
+        userElement.classList.add('user');
+        userElement.innerHTML = `
+          <img class="user__avatar" src="${user.profileImageUrl}" alt="${user.name}">
+          <div class="user__info">
+            <h4 class="user__name">${user.name}</h4>
+            <p class="user__phone">${user.phoneNumber}</p>
+          </div>
+          <button class="user__start-conversation-button" data-user-id="${user.id}">Iniciar Conversación</button>
+        `;
+        usersContainer.appendChild(userElement);
       }
     }
   } catch (error) {
-    console.error('Error al realizar la búsqueda de chats:', error);
+    console.error('Error al realizar la búsqueda de usuarios:', error);
   }
 };
 
+const toggleFilters = () => {
+  filtersActive = !filtersActive;
+  recentChats();
+  searchUsersToStartConversation();
+};
+
 // Llamar a la función para realizar la búsqueda de chats cuando haya un evento de entrada en el campo de búsqueda
-document.querySelector('.home__modal-header-input').addEventListener('input', searchChats);
+document.querySelector('.home__modal-header-input').addEventListener('input', searchUsersToStartConversation);
 
+const recentChatsContainer = document.getElementById('recent-chats');
+const availableUsersContainer = document.getElementById('available-users');
 
+function showAvailableUsers() {
+  recentChatsContainer.style.display = 'none';
+  availableUsersContainer.style.display = 'block';
+}
+
+function showRecentChats() {
+  recentChatsContainer.style.display = 'block';
+  availableUsersContainer.style.display = 'none';
+}
+
+document.getElementById('button__show-users').addEventListener('click', function() {
+  showAvailableUsers();
+});
+
+document.getElementById('button__show-chats').addEventListener('click', function() {
+  showRecentChats();
+});
 
 // Event Listener para enviar el formulario... (no pude separarlo, depende mucho de las otras funciones)
 document.getElementById('formProfile').addEventListener('submit', async (event) => {
@@ -358,13 +410,15 @@ showDefaultOrUserProfileImage(userId);
 initializePage(userId);
 // Event Listener para cambiar la imagen de previsualización al escribir una URL
 showPreviewContainer(inputUrl, previewImg);
-
+// Cambiar fecha de la ultima vez
+lastOnline();
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
   fillUserHeader();
   recentChats();
+
   printMessages();
 });
 
