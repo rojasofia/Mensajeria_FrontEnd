@@ -38,6 +38,9 @@ const lastOnline = () => {
                 const updateUserUrl = `${endpoints.users}/${userId}`;
                 const updateResponse = await axios.put(updateUserUrl, userData);
 
+                sessionStorage.removeItem('userId');
+                sessionStorage.removeItem('friendId');
+
                 console.log('Datos del usuario actualizados correctamente:', updateResponse.data);
 
                 // Redireccionar al usuario a la página de inicio de sesión

@@ -209,7 +209,6 @@ document.getElementById('button__show-chats').addEventListener('click', function
   showRecentChats();
 });
 
-// Event Listener para enviar el formulario... (no pude separarlo, depende mucho de las otras funciones)
 document.getElementById('formProfile').addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -294,7 +293,7 @@ const printMessages = async () => {
         
         messageContainer.appendChild(icon)
         if (!message.flag) {
-          icon.style.color = 'gray'; // Cambiar color a gris
+          icon.style.color = 'gray'; 
         }
 
       } else if (message.sendBy == friendId) {
@@ -311,7 +310,7 @@ const printMessages = async () => {
 
 
 
-// Codigo de Gaby: FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
+//FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
 const profileButton = document.getElementById("profile");
 const modal = document.querySelector(".section__modal-container");
 const closeButton = document.getElementById("closeModal");
