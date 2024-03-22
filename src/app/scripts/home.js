@@ -9,6 +9,7 @@ import showPreviewContainer from "../modules/showPreviewContainer";
 import initializePage from "../modules/initializePage";
 import { getConversation, getDataUser } from "../services/userServices";
 import lastOnline from "../modules/lastOnline";
+import Swal from "sweetalert2";
 // Definir userId como variable global
 let userId;
 let filtersActive = false;
@@ -257,34 +258,6 @@ document.getElementById('button__show-chats').addEventListener('click', function
   showRecentChats();
 });
 
-document.getElementById('formProfile').addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const imgUrl = document.getElementById('profileImageUrl').value;
-  const name = document.getElementById('name').value;
-  const userInfo = document.getElementById('userInfo').value;
-
-  try {
-    const userId = sessionStorage.getItem('userId');
-    const userData = await getUserInfo(userId);
-
-    if (userData) {
-      userData.profileImageUrl = imgUrl;
-      userData.name = name;
-      userData.userInfo = userInfo;
-
-      await axios.put(`${endpoints.users}/${userId}`, userData);
-
-      console.log('¡La información del usuario se ha actualizado correctamente!');
-      location.reload();
-    } else {
-      console.error('No se pudo obtener la información del usuario para actualizar.');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 
 //Funcion para pintar los mensajes del chat
 const printMessages = async () => {
@@ -370,6 +343,60 @@ const printMessages = async () => {
 
 
 
+// Codigo de Gaby:
+// Event Listener para enviar el formulario
+document.getElementById('formProfile').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const imgUrl = document.getElementById('profileImageUrl').value;
+  const name = document.getElementById('name').value;
+  const userInfo = document.getElementById('userInfo').value;
+
+  try {
+    const userId = sessionStorage.getItem('userId');
+    const userData = await getUserInfo(userId);
+
+    if (userData) {
+      // Verificar cada campo antes de actualizar
+      if (imgUrl.trim() !== "") {
+        userData.profileImageUrl = imgUrl;
+      }
+      if (name.trim() !== "") {
+        userData.name = name;
+      }
+      if (userInfo.trim() !== "") {
+        userData.userInfo = userInfo;
+      }
+
+      await axios.put(`${endpoints.users}/${userId}`, userData);
+
+      console.log('¡La información del usuario se ha actualizado correctamente!');
+
+      Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: 'La información del usuario se ha actualizado correctamente!',
+        timer: 1500,
+        timerProgressBar: false,
+      }).then(() => location.reload());
+    } else {
+      console.error('No se pudo obtener la información del usuario para actualizar.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo obtener la información del usuario para actualizar.'
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Ocurrió un error al actualizar la información del usuario. Por favor, inténtalo de nuevo.'
+    });
+  }
+});
+
 //FUNCION PARA MOSTRAR EL MODAL DE INFO DE PERFIL
 const profileButton = document.getElementById("profile");
 const modal = document.querySelector(".section__modal-container");
@@ -391,7 +418,6 @@ initializePage(userId);
 showPreviewContainer(inputUrl, previewImg);
 // Cambiar fecha de la ultima vez
 lastOnline();
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
