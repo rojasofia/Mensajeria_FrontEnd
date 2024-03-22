@@ -1,0 +1,287 @@
+/*!********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/app/styles/style.scss ***!
+  \********************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Quicksand);
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/app/styles/style.scss (1) ***!
+  \************************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Quicksand);
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/app/styles/style.scss (2) ***!
+  \************************************************************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat";
+}
+
+.home {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+}
+.home__modal {
+  width: 35%;
+}
+@media only screen and (max-width: 992px) {
+  .home__modal {
+    width: 42%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .home__modal {
+    width: 100%;
+  }
+}
+.home__chat {
+  width: 65%;
+}
+@media only screen and (max-width: 992px) {
+  .home__chat {
+    width: 58%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .home__chat {
+    display: none;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(231, 231, 231);
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 500px;
+  margin-top: 50px;
+}
+
+.form-modal {
+  position: relative;
+  width: 450px;
+  height: auto;
+  margin-top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 6px 30px 5px #2dbeb1;
+}
+
+.form-modal label {
+  font-style: normal;
+  color: rgb(34, 34, 34);
+  font-size: 12pt;
+  margin-left: 15px;
+}
+
+.form-modal button {
+  cursor: pointer;
+  position: relative;
+  text-transform: capitalize;
+  font-size: 1em;
+  z-index: 2;
+  outline: none;
+  background: #fff;
+  transition: 0.2s;
+}
+.form-modal button.btn {
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0.8em 1em 0.8em 1em;
+  transition: 0.5s;
+  border: 1px solid #ebebeb;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+.form-modal button.btn.login, .form-modal button.btn.signup {
+  background: #2DBEB1;
+  color: #fff;
+}
+.form-modal button.btn.login:hover, .form-modal button.btn.signup:hover {
+  background: #F84914;
+}
+
+.form-toggle {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.form-toggle button {
+  width: 50%;
+  float: left;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  border: none;
+  transition: 0.2s;
+  font-size: 1.1em;
+  font-weight: bold;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.form-toggle #login-toggle {
+  background: #F84914;
+  color: #fff;
+}
+.form-toggle #signup-toggle,
+.form-toggle #login-toggle {
+  cursor: pointer;
+  position: relative;
+  text-transform: capitalize;
+  font-size: 1em;
+  z-index: 2;
+  outline: none;
+  transition: 0.2s;
+  border: 1px solid #ebebeb;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  border-radius: 20px;
+}
+.form-toggle #signup-toggle:hover,
+.form-toggle #login-toggle:hover {
+  background-color: #2DBEB1;
+}
+.form-toggle #login-toggle {
+  background-color: #F84914;
+  color: #fff;
+}
+.form-toggle #login-toggle.active {
+  background-color: #511684;
+  color: #fff;
+}
+.form-toggle #signup-toggle {
+  background-color: #F84914;
+  color: #fff;
+}
+.form-toggle #signup-toggle.active {
+  background-color: #511684;
+  color: #fff;
+}
+
+form {
+  position: relative;
+  width: 90%;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#login-form,
+#signup-form {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding-bottom: 1em;
+}
+#login-form #signup-form,
+#signup-form #signup-form {
+  display: none;
+}
+#login-form button,
+#signup-form button {
+  width: 100%;
+  margin-top: 0.5em;
+  padding: 0.6em;
+}
+
+input {
+  position: relative;
+  width: 100%;
+  font-size: 12pt;
+  padding: 1.2em 1.7em 1.2em 1.7em;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+  border-radius: 20px;
+  border: none;
+  background: #ebebeb;
+  outline: none;
+  font-weight: light;
+  transition: 0.4s;
+}
+input:focus, input:active {
+  transform: scaleX(1.02);
+}
+
+p {
+  font-size: 16px;
+  font-weight: bold;
+}
+p a {
+  color: #F84914;
+  text-decoration: none;
+  transition: 0.2s;
+}
+p a:hover {
+  color: #222;
+}
+
+i {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  transform: translateX(-10%) translateY(-50%);
+}
+
+.form-input {
+  width: 100%;
+  border: 3px solid transparent;
+  height: 45px;
+  background-color: rgb(239, 243, 243);
+  line-height: 45px;
+  padding: 0 40px 0 10px;
+  transition: 0.3s ease all;
+}
+.form-input:focus {
+  border: 3px solid #2DBEB1;
+  outline: none;
+  box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+
+.form__input-error {
+  font-size: 13px;
+  margin: 0 0 0 1rem;
+  display: none;
+  color: #F84914;
+}
+
+#icon_eye {
+  left: 23rem;
+  top: 212px;
+  cursor: pointer;
+}
+
+#icon_eye2 {
+  left: 23rem;
+  top: 18.5rem;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .form-modal {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  i {
+    display: none;
+  }
+}
