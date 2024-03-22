@@ -172,7 +172,7 @@ const recentChats = async () => {
 };
 
 
-const searchUsersToStartConversation = async () => {
+const searchConversation = async () => {
   try {
     const searchValue = document.querySelector('.home__modal-header-input').value.toLowerCase();
 
@@ -194,8 +194,13 @@ const searchUsersToStartConversation = async () => {
     const usersContainer = document.getElementById('available-users');
     usersContainer.innerHTML = '';
 
+  // Obtener el ID del usuario logueado
+    const userId = parseInt(sessionStorage.getItem('userId'));
+
+
     for (const user of users) {
-      if (user.name.toLowerCase().includes(searchValue) || user.phoneNumber.toLowerCase().includes(searchValue)) {
+      const currentUserId = parseInt(user.id);
+      if (currentUserId !== userId && (user.name.toLowerCase().includes(searchValue) || user.phoneNumber.toLowerCase().includes(searchValue))) {
         const userElement = document.createElement('div');
         userElement.classList.add('user');
         userElement.innerHTML = `
@@ -225,11 +230,11 @@ const searchUsersToStartConversation = async () => {
 const toggleFilters = () => {
   filtersActive = !filtersActive;
   recentChats();
-  searchUsersToStartConversation();
+  searchConversation();
 };
 
 // Llamar a la función para realizar la búsqueda de chats cuando haya un evento de entrada en el campo de búsqueda
-document.querySelector('.home__modal-header-input').addEventListener('input', searchUsersToStartConversation);
+document.querySelector('.home__modal-header-input').addEventListener('input', searchConversation);
 
 const recentChatsContainer = document.getElementById('recent-chats');
 const availableUsersContainer = document.getElementById('available-users');

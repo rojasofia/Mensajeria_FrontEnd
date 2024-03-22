@@ -169,6 +169,7 @@ img {
 #available-users {
     padding: $padding-header-home;
     @include center($justify-content: space-around);
+    margin-left: 1rem;
 
     .user__avatar {
         @include widthImage;
@@ -193,6 +194,17 @@ img {
         border-radius: 5rem;
     }
 }
+
+// scroll 
+.home__user-container {
+    max-height: 740px; 
+    overflow-y: auto; 
+  }
+  
+ 
+  .home__user-container:hover .flecha-scroll {
+    display: block; 
+  }
 
 //Estilos de la conversación abierta
 .home__chat {
