@@ -2,7 +2,7 @@
 
 TALK2ME es una aplicación de mensajería diseñada para ofrecer una experiencia de comunicación fluida, inspirada en plataformas populares como WhatsApp. Se centra en la simplicidad y la eficacia para conectar a personas en todo el mundo, proporcionando una plataforma integral para la comunicación personal y profesional.
 
-URL:https://rojasofia.github.io/Mensajeria_FrontEnd/index.html Frontend
+URL:https://rojasofia.github.io/Mensajeria_FrontEnd/index.html Frontend  <br/>
 URL: https://backmensajeriafrontend-production.up.railway.app/users Backend
 
 ## Descripción
