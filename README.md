@@ -2,12 +2,6 @@
 
 TALK2ME es una aplicación de mensajería diseñada para ofrecer una experiencia de comunicación fluida, inspirada en plataformas populares como WhatsApp. Se centra en la simplicidad y la eficacia para conectar a personas en todo el mundo, proporcionando una plataforma integral para la comunicación personal y profesional.
 
-## Autoras
-- Estefanía Vargas Villan ([EstefaniaVillan](https://github.com/EstefaniaVillan))
-- Gabriela Aguiar Marquez ([GabrielaAguiarMarquez](https://github.com/GabrielaAguiarMarquez))
-- Juliana Argáez Cartagena ([Juliana-AC04](https://github.com/Juliana-AC04))
-- Jenny Sofía Vitery ([rojasofia](https://github.com/rojasofia))
-
 ## Descripción
 El proyecto Módulo 2 Frontend - TALK2ME se enfoca en la creación de una aplicación de mensajería similar a WhatsApp. Utiliza tecnologías como condicionales, peticiones HTTPs con Axios, eventos del DOM, sessionStorage/localStorage, métodos de arrays, WebPack y Babel, Flexbox y Media queries, principios de código limpio, implementación de JSON server (API) y Sweetalert para mostrar alertas. Además, la página se despliega en GitHub Pages.
 
@@ -19,6 +13,19 @@ El proyecto Módulo 2 Frontend - TALK2ME se enfoca en la creación de una aplica
 - **Sweetalert:** Para mostrar alertas.
 - **Flexbox y Media queries:** Para diseño responsive.
 - **Webpack y Babel:** Para gestionar dependencias y compatibilidad de navegadores.
+
+## Screenshop de la pagina
+#### Sing Up
+![image](https://github.com/rojasofia/Mensajeria_FrontEnd/assets/117688109/f6605e0b-0ad6-41bf-9913-8282ca13e27c)
+#### Login
+![image](https://github.com/rojasofia/Mensajeria_FrontEnd/assets/117688109/6db8a88e-def3-4bfd-8738-d26de5b75416)
+#### Editamos el perfil si deseamos.<br/>
+![image](https://github.com/rojasofia/Mensajeria_FrontEnd/assets/117688109/5663822a-b9d6-49ec-a6ad-4a81fcb86858) <br/>
+#### Chats<br/> 
+![image](https://github.com/rojasofia/Mensajeria_FrontEnd/assets/117688109/ea318aa3-5fee-4e85-ae59-9328ccc54d04)
+#### Filtramos nuevos usuarios <br/> 
+![image](https://github.com/rojasofia/Mensajeria_FrontEnd/assets/117688109/3f8f0ee4-b55d-43e6-9373-c449d069a40e)
+
 
 
 
@@ -39,14 +46,13 @@ El proyecto utiliza Git Flow para una gestión estructurada del flujo de trabajo
 
 Para contribuir al proyecto, sigue estos pasos:
 1. Clona el repositorio desde GitHub:
-   ```
-   git clone https://github.com/rojasofia/Mensajeria_FrontEnd.git
-   ```
 
+   git clone https://github.com/rojasofia/Mensajeria_FrontEnd.git
+ 
 2. Cambia al directorio del repositorio clonado:
-   ```
+   
    cd Mensajeria_FrontEnd
-   ```
+ 
 
 ## Fuentes de Información
 Durante el desarrollo del proyecto, se utilizaron diversas fuentes para obtener información, solucionar problemas y mejorar la calidad del código, incluyendo:
@@ -56,6 +62,13 @@ Durante el desarrollo del proyecto, se utilizaron diversas fuentes para obtener 
 - Font Awesome
 - IA
 - material de estudio de MAKAIA.
+  
+## Autoras
+- Estefanía Vargas Villan ([EstefaniaVillan](https://github.com/EstefaniaVillan))
+- Gabriela Aguiar Marquez ([GabrielaAguiarMarquez](https://github.com/GabrielaAguiarMarquez))
+- Jenny Sofía Vitery ([rojasofia](https://github.com/rojasofia))
+- Juliana Argáez Cartagena ([Juliana-AC04](https://github.com/Juliana-AC04))
+
 
 
 ---
