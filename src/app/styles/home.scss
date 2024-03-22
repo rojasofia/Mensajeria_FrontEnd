@@ -197,7 +197,7 @@ img {
 
 // scroll 
 .home__user-container {
-    max-height: 740px; 
+    max-height: 70%; 
     overflow-y: auto; 
   }
   
@@ -209,7 +209,7 @@ img {
 //Estilos de la conversación abierta
 .home__chat {
     position: relative;
-    overflow: hidden;
+    overflow-y: hidden;
 
     i {
         color: $color-acento;
